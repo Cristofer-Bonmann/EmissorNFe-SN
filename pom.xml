@@ -13,4 +13,12 @@
         <maven.compiler.target>18</maven.compiler.target>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>br.com.swconsultoria</groupId>
+            <artifactId>java-nfe</artifactId>
+            <version>4.00.18</version>
+        </dependency>
+    </dependencies>
+
 </project>
