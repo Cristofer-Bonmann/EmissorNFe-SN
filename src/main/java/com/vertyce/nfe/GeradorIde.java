@@ -67,14 +67,27 @@ public class GeradorIde implements GeradorIdePresenter{
         String cdv = null;
 
         if (ide != null && cnpj != null && dhEmi != null) {
+
+            final String cUF = ide.getCUF();
+            final String mod = ide.getMod();
+            final String serie = ide.getSerie();
+            final String nNF = ide.getNNF();
+            final String tpEmis = ide.getTpEmis();
+            final String cnf = ide.getCNF();
+
+            final EstadosEnum estadoEnum = EstadosEnum.getByCodigoIbge(cUF != null ? cUF : "27");
+            final Integer serieInt = serie != null ? Integer.parseInt(serie) : 0;
+            final Integer nNFInt = nNF != null ? Integer.parseInt(nNF) : 0;
+            final String cNF = cnf != null ? cnf : "00000000";
+
             ChaveUtil chaveUtil = new ChaveUtil(
-                    EstadosEnum.getByCodigoIbge(ide.getCUF()),
+                    estadoEnum,
                     cnpj,
-                    ide.getMod(),
-                    Integer.parseInt(ide.getSerie()),
-                    Integer.parseInt(ide.getNNF()),
-                    ide.getTpEmis(),
-                    ide.getCNF(),
+                    mod,
+                    serieInt,
+                    nNFInt,
+                    tpEmis,
+                    cNF,
                     dhEmi);
 
             chave = chaveUtil.getChaveNF();

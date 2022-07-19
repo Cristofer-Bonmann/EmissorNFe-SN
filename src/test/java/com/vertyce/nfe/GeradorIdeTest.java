@@ -193,6 +193,31 @@ public class GeradorIdeTest {
     }
 
     @Test
+    public void deveRetornarDadosChavePropriedadeIdeNulas(){
+        final String cnpj = "92638680000191";
+        final TNFe.InfNFe.Ide ide = new TNFe.InfNFe.Ide();
+        ide.setCUF(null);
+        ide.setMod(null);
+        ide.setSerie(null);
+        ide.setNNF(null);
+        ide.setTpEmis(null);
+        ide.setCNF(null);
+        ide.setDhEmi("2022-01-01 12:30:00");
+        LocalDateTime localDateTime = Util.strToLocalDateTime(ide.getDhEmi());
+
+        Map<String, String> dadosDaChave = geradorIde.getDadosDaChave(ide, cnpj, localDateTime);
+
+        final String chave = dadosDaChave.get("chave");
+        final String cdv = dadosDaChave.get("cdv");
+
+        System.out.println(chave);
+        System.out.println(cdv);
+
+        assertThat(chave, notNullValue());
+        assertThat(cdv, notNullValue());
+    }
+
+    @Test
     public void deveRetornarDadosChaveComDataEmissaoNula(){
         final String cnpj = "92638680000191";
         final TNFe.InfNFe.Ide ide = new TNFe.InfNFe.Ide();
