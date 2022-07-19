@@ -62,19 +62,24 @@ public class GeradorIde implements GeradorIdePresenter{
     }
 
     // TODO: 19/07/2022 adicionar doc
-    protected Map<String, String> getDadosDaChave(TNFe.InfNFe.Ide ide, String cnpj, LocalDateTime dhEmit){
-        ChaveUtil chaveUtil = new ChaveUtil(
-                EstadosEnum.getByCodigoIbge(ide.getCUF()),
-                cnpj,
-                ide.getMod(),
-                Integer.parseInt(ide.getSerie()),
-                Integer.parseInt(ide.getNNF()),
-                ide.getTpEmis(),
-                ide.getCNF(),
-                dhEmit);
+    protected Map<String, String> getDadosDaChave(TNFe.InfNFe.Ide ide, String cnpj, LocalDateTime dhEmi){
+        String chave = null;
+        String cdv = null;
 
-        String chave = chaveUtil.getChaveNF();
-        String cdv = chaveUtil.getDigitoVerificador();
+        if (ide != null && cnpj != null && dhEmi != null) {
+            ChaveUtil chaveUtil = new ChaveUtil(
+                    EstadosEnum.getByCodigoIbge(ide.getCUF()),
+                    cnpj,
+                    ide.getMod(),
+                    Integer.parseInt(ide.getSerie()),
+                    Integer.parseInt(ide.getNNF()),
+                    ide.getTpEmis(),
+                    ide.getCNF(),
+                    dhEmi);
+
+            chave = chaveUtil.getChaveNF();
+            cdv = chaveUtil.getDigitoVerificador();
+        }
 
         final HashMap<String, String> dadosChave = new HashMap<>();
         dadosChave.put("cdv", cdv);

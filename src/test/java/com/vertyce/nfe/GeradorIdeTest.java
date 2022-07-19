@@ -21,8 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -191,6 +190,65 @@ public class GeradorIdeTest {
         geradorIde.gerarIde(infNFe);
 
         assertThat(infNFe.getIde(), notNullValue());
+    }
+
+    @Test
+    public void deveRetornarDadosChaveComDataEmissaoNula(){
+        final String cnpj = "92638680000191";
+        final TNFe.InfNFe.Ide ide = new TNFe.InfNFe.Ide();
+        ide.setCUF("27");
+        ide.setMod(DocumentoEnum.NFE.getModelo());
+        ide.setSerie("1");
+        ide.setNNF("1");
+        ide.setTpEmis(ETpEmis.NORMAL.getCodigo());
+        ide.setCNF("00000001");
+        ide.setDhEmi("2022-01-01 12:30:00");
+        LocalDateTime localDateTime = null;
+
+        Map<String, String> dadosDaChave = geradorIde.getDadosDaChave(ide, cnpj, localDateTime);
+
+        final String chave = dadosDaChave.get("chave");
+        final String cdv = dadosDaChave.get("chave");
+
+        assertThat(chave, nullValue());
+        assertThat(cdv, nullValue());
+    }
+
+    @Test
+    public void deveRetornarDadosChaveComCNPJNulo(){
+        final String cnpj = null;
+        final TNFe.InfNFe.Ide ide = new TNFe.InfNFe.Ide();
+        ide.setCUF("27");
+        ide.setMod(DocumentoEnum.NFE.getModelo());
+        ide.setSerie("1");
+        ide.setNNF("1");
+        ide.setTpEmis(ETpEmis.NORMAL.getCodigo());
+        ide.setCNF("00000001");
+        ide.setDhEmi("2022-01-01 12:30:00");
+        LocalDateTime localDateTime = Util.strToLocalDateTime(ide.getDhEmi());
+
+        Map<String, String> dadosDaChave = geradorIde.getDadosDaChave(ide, cnpj, localDateTime);
+
+        final String chave = dadosDaChave.get("chave");
+        final String cdv = dadosDaChave.get("chave");
+
+        assertThat(chave, nullValue());
+        assertThat(cdv, nullValue());
+    }
+
+    @Test
+    public void deveRetornarDadosDaChaveComIdeNulo(){
+        final String cnpj = "92638680000191";
+        final TNFe.InfNFe.Ide ide = null;
+        LocalDateTime localDateTime = Util.strToLocalDateTime("2022-01-01 12:30:00");
+
+        Map<String, String> dadosDaChave = geradorIde.getDadosDaChave(ide, cnpj, localDateTime);
+
+        final String chave = dadosDaChave.get("chave");
+        final String cdv = dadosDaChave.get("chave");
+
+        assertThat(chave, nullValue());
+        assertThat(cdv, nullValue());
     }
 
     @Test
