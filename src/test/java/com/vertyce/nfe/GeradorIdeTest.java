@@ -13,13 +13,15 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TimeZone;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.verify;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 public class GeradorIdeTest {
 
@@ -29,6 +31,21 @@ public class GeradorIdeTest {
     @Before
     public void setUp(){
         MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    public void deveGerarComCDV(){
+        final TNFe.InfNFe infNFe = new TNFe.InfNFe();
+        final HashMap<String, String> dadosChave = new HashMap<>();
+        dadosChave.put("cdv", "1");
+
+        doReturn(dadosChave).when(geradorIde).getDadosDaChave(any());
+        geradorIde.gerarIde(infNFe);
+
+        verify(geradorIde).getDadosDaChave(any());
+
+        TNFe.InfNFe.Ide ide = infNFe.getIde();
+        assertThat(ide.getCDV(), is("1"));
     }
 
     @Test

@@ -1,6 +1,7 @@
 package com.vertyce.nfe;
 
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
+import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.util.ChaveUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
@@ -10,6 +11,7 @@ import com.vertyce.enums.ETpImp;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.Map;
 
 public class GeradorIde implements GeradorIdePresenter{
     @Override
@@ -35,6 +37,12 @@ public class GeradorIde implements GeradorIdePresenter{
         final String cMunFG = "2700102";
         final String tpImp = ETpImp.RETRATO.getCodigo();
         final String tpEmis = ETpEmis.NORMAL.getCodigo();
+        final String cnpj = "92638680000191";
+        final EstadosEnum estadoEnum = EstadosEnum.getByCodigoIbge(cUF);
+
+        ChaveUtil chaveUtil = new ChaveUtil(estadoEnum, cnpj, mod, Integer.parseInt(serie), Integer.parseInt(nNF), tpEmis, cNF, localDateTimeAgora);
+        String chave = chaveUtil.getChaveNF();
+        String cdv = chaveUtil.getDigitoVerificador();
 
         ide.setCUF(cUF);
         ide.setCNF(cNF);
@@ -49,6 +57,16 @@ public class GeradorIde implements GeradorIdePresenter{
         ide.setCMunFG(cMunFG);
         ide.setTpImp(tpImp);
         ide.setTpEmis(tpEmis);
+
+        Map<String, String> dadosDaChave = getDadosDaChave(ide);
+        if (dadosDaChave != null) {
+            ide.setCDV(dadosDaChave.get("cdv"));
+        }
+    }
+
+    // TODO: 19/07/2022 adicionar doc
+    protected Map<String, String> getDadosDaChave(TNFe.InfNFe.Ide ide){
+        return null;
     }
 
     /**
