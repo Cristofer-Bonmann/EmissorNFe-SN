@@ -6,6 +6,7 @@ import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.util.ChaveUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
+import com.vertyce.enums.EFinNFe;
 import com.vertyce.enums.ETpEmis;
 import com.vertyce.enums.ETpImp;
 
@@ -62,7 +63,7 @@ public class GeradorIde implements GeradorIdePresenter{
         }
 
         ide.setTpAmb(AmbienteEnum.HOMOLOGACAO.getCodigo());
-        ide.setFinNFe("1");
+        ide.setFinNFe(EFinNFe.NORMAL.getCodigo());
     }
 
     // TODO: 19/07/2022 adicionar doc
