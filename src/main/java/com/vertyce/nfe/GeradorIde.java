@@ -6,10 +6,7 @@ import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.util.ChaveUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
-import com.vertyce.enums.EFinNFe;
-import com.vertyce.enums.EIndFinal;
-import com.vertyce.enums.ETpEmis;
-import com.vertyce.enums.ETpImp;
+import com.vertyce.enums.*;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -66,6 +63,8 @@ public class GeradorIde implements GeradorIdePresenter{
         ide.setTpAmb(AmbienteEnum.HOMOLOGACAO.getCodigo());
         ide.setFinNFe(EFinNFe.NORMAL.getCodigo());
         ide.setIndFinal(EIndFinal.NORMAL.getCodigo());
+        ide.setIndPres(EIndPres.NAO_PRESENCIAL_OUTROS.getCodigo());
+        ide.setProcEmi(EProcEmi.COM_APP_CONTRIB.getCodigo());
     }
 
     // TODO: 19/07/2022 adicionar doc

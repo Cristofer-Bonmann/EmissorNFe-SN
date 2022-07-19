@@ -37,6 +37,26 @@ public class GeradorIdeTest {
     }
 
     @Test
+    public void deveGerarComProcEmi(){
+        final TNFe.InfNFe infNFe = new TNFe.InfNFe();
+
+        geradorIde.gerarIde(infNFe);
+
+        TNFe.InfNFe.Ide ide = infNFe.getIde();
+        assertThat(ide.getProcEmi(), is("0"));
+    }
+
+    @Test
+    public void deveGerarComIndPres(){
+        final TNFe.InfNFe infNFe = new TNFe.InfNFe();
+
+        geradorIde.gerarIde(infNFe);
+
+        TNFe.InfNFe.Ide ide = infNFe.getIde();
+        assertThat(ide.getIndPres(), is("9"));
+    }
+
+    @Test
     public void deveGerarComIndFinal(){
         final TNFe.InfNFe infNFe = new TNFe.InfNFe();
 
