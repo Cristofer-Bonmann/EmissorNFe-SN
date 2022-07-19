@@ -16,8 +16,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GeradorIde implements GeradorIdePresenter{
+    /**
+     * Gera objeto Ide com informações da identificação da nota fiscal.
+     * @param infNFe TAG raíz da nota fiscal.
+     * @return chave da NF-e.
+     */
     @Override
-    public void gerarIde(TNFe.InfNFe infNFe) {
+    public String gerarIde(TNFe.InfNFe infNFe) {
         TNFe.InfNFe.Ide ide = new TNFe.InfNFe.Ide();
         infNFe.setIde(ide);
 
@@ -42,6 +47,7 @@ public class GeradorIde implements GeradorIdePresenter{
         final String cnpj = "92638680000191";
         final String dhCont = null;
         final String xJust = null;
+        String chave = null;
 
         ide.setCUF(cUF);
         ide.setCNF(cNF);
@@ -60,6 +66,7 @@ public class GeradorIde implements GeradorIdePresenter{
         Map<String, String> dadosDaChave = getDadosDaChave(ide, cnpj, localDateTimeAgora);
         if (dadosDaChave != null) {
             ide.setCDV(dadosDaChave.get("cdv"));
+            chave = dadosDaChave.get("chave");
         }
 
         ide.setTpAmb(AmbienteEnum.HOMOLOGACAO.getCodigo());
@@ -70,6 +77,8 @@ public class GeradorIde implements GeradorIdePresenter{
         ide.setVerProc(getVersaoSistema());
         ide.setDhCont(dhCont);
         ide.setXJust(xJust);
+
+        return chave;
     }
 
     /**

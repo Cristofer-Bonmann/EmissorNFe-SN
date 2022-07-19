@@ -4,5 +4,5 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 
 public interface GeradorIdePresenter {
 
-    void gerarIde(TNFe.InfNFe infNFe);
+    String gerarIde(TNFe.InfNFe infNFe);
 }

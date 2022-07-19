@@ -6,16 +6,12 @@ import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import com.vertyce.certificado.Certificado;
-import com.vertyce.nfe.ConfiguradorNfe;
-import com.vertyce.nfe.GeradorInfNfe;
-import com.vertyce.nfe.GeradorInfNfePresenter;
+import com.vertyce.nfe.*;
 
 import javax.swing.*;
 import java.io.FileNotFoundException;
 
 public class Main {
-
-
 
     public static void main(String[] args){
         SwingUtilities.invokeLater(() -> {
@@ -28,8 +24,10 @@ public class Main {
 
                 final GeradorInfNfePresenter geradorInfNfePresenter = new GeradorInfNfe();
                 TNFe.InfNFe infNFe = geradorInfNfePresenter.gerarInfNFe();
-                System.out.println(infNFe.getVersao());
-                System.out.println(infNFe.getId());
+
+                final GeradorIdePresenter geradorIdePresenter = new GeradorIde();
+                final String chave = geradorIdePresenter.gerarIde(infNFe);
+                infNFe.setId(chave);
 
             } catch (CertificadoException e) {
                 System.out.println("Certificado digital inválido");
