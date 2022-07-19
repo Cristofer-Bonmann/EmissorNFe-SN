@@ -7,6 +7,7 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.util.ChaveUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 import com.vertyce.enums.*;
+import com.vertyce.sistema.Sistema;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -65,6 +66,7 @@ public class GeradorIde implements GeradorIdePresenter{
         ide.setIndFinal(EIndFinal.NORMAL.getCodigo());
         ide.setIndPres(EIndPres.NAO_PRESENCIAL_OUTROS.getCodigo());
         ide.setProcEmi(EProcEmi.COM_APP_CONTRIB.getCodigo());
+        ide.setVerProc(getVersaoSistema());
     }
 
     // TODO: 19/07/2022 adicionar doc
@@ -112,5 +114,10 @@ public class GeradorIde implements GeradorIdePresenter{
      */
     protected LocalDateTime getLocalDateTimeAgora(){
         return LocalDateTime.now(ZoneId.systemDefault());
+    }
+
+    // TODO: 19/07/2022 inserir doc
+    protected String getVersaoSistema() {
+        return Sistema.VERSAO;
     }
 }

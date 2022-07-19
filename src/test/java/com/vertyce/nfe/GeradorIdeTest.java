@@ -4,6 +4,7 @@ import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import com.vertyce.enums.ETpEmis;
+import com.vertyce.sistema.Sistema;
 import com.vertyce.util.Util;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
@@ -34,6 +35,19 @@ public class GeradorIdeTest {
     @Before
     public void setUp(){
         MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    public void deveGerarComVerProc(){
+        final TNFe.InfNFe infNFe = new TNFe.InfNFe();
+
+        doReturn(Sistema.VERSAO).when(geradorIde).getVersaoSistema();
+        geradorIde.gerarIde(infNFe);
+
+        verify(geradorIde).getVersaoSistema();
+
+        TNFe.InfNFe.Ide ide = infNFe.getIde();
+        assertThat(ide.getVerProc(), is("1.0-TEST"));
     }
 
     @Test
@@ -259,9 +273,6 @@ public class GeradorIdeTest {
 
         final String chave = dadosDaChave.get("chave");
         final String cdv = dadosDaChave.get("cdv");
-
-        System.out.println(chave);
-        System.out.println(cdv);
 
         assertThat(chave, notNullValue());
         assertThat(cdv, notNullValue());
