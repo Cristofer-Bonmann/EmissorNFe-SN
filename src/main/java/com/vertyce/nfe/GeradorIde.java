@@ -3,6 +3,10 @@ package com.vertyce.nfe;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.util.ChaveUtil;
+import br.com.swconsultoria.nfe.util.XmlNfeUtil;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class GeradorIde implements GeradorIdePresenter{
     @Override
@@ -16,6 +20,18 @@ public class GeradorIde implements GeradorIdePresenter{
         final String natOp = "VENDA DE MERCADORIA PRODUZIDA OU ADQUIRIDA POR TERCEIROS";
         final String mod = DocumentoEnum.NFE.getModelo();
         final String serie = "1";
+        String dhEmi = null;
+        String dhSaiEnt = null;
+        final LocalDateTime localDateTimeAgora = getLocalDateTimeAgora();
+        if (localDateTimeAgora != null) {
+            dhEmi = XmlNfeUtil.dataNfe(localDateTimeAgora);
+            dhSaiEnt = dhEmi;
+        }
+        final String tpNF = "1";
+        final String idDest = null;
+        final String cMunFG = "2700102";
+        final String tpImp = "1";
+        final String tpEmis = "1";
 
         ide.setCUF(cUF);
         ide.setCNF(cNF);
@@ -23,5 +39,17 @@ public class GeradorIde implements GeradorIdePresenter{
         ide.setMod(mod);
         ide.setSerie(serie);
         ide.setNNF(nNF);
+        ide.setDhEmi(dhEmi);
+        ide.setDhSaiEnt(dhSaiEnt);
+        ide.setTpNF(tpNF);
+        ide.setIdDest(idDest);
+        ide.setCMunFG(cMunFG);
+        ide.setTpImp(tpImp);
+        ide.setTpEmis(tpEmis);
+    }
+
+    // TODO: 19/07/2022
+    protected LocalDateTime getLocalDateTimeAgora(){
+        return null;
     }
 }
