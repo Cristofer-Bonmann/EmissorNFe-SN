@@ -6,9 +6,12 @@ import java.time.format.DateTimeFormatter;
 
 public class Util {
 
-    // TODO: 19/07/2022 inserir doc
+    /**
+     * Converte uma data/hora em um objeto LocalDateTime. Ex.: 2022-01-01 12:30:00
+     * @param strLocalDateTime String que será convertida.
+     * @return objeto LocalTimeDate da String convertida.
+     */
     public static LocalDateTime strToLocalDateTime(String strLocalDateTime){
-//        final String str = "2022-01-01 12:30:00";
         final String pattern = "yyyy-MM-dd HH:mm:ss";
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern)
                 .withZone(ZoneId.of("America/Sao_Paulo"));
