@@ -37,6 +37,26 @@ public class GeradorIdeTest {
     }
 
     @Test
+    public void deveGerarComFinNFe(){
+        final TNFe.InfNFe infNFe = new TNFe.InfNFe();
+
+        geradorIde.gerarIde(infNFe);
+
+        TNFe.InfNFe.Ide ide = infNFe.getIde();
+        assertThat(ide.getFinNFe(), is("1"));
+    }
+
+    @Test
+    public void deveGerarComTpAmb(){
+        final TNFe.InfNFe infNFe = new TNFe.InfNFe();
+
+        geradorIde.gerarIde(infNFe);
+
+        TNFe.InfNFe.Ide ide = infNFe.getIde();
+        assertThat(ide.getTpAmb(), is("2"));
+    }
+
+    @Test
     public void deveGerarComCDV(){
         final TNFe.InfNFe infNFe = new TNFe.InfNFe();
         final HashMap<String, String> dadosChave = new HashMap<>();

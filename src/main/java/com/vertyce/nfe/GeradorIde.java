@@ -1,5 +1,6 @@
 package com.vertyce.nfe;
 
+import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
@@ -59,6 +60,9 @@ public class GeradorIde implements GeradorIdePresenter{
         if (dadosDaChave != null) {
             ide.setCDV(dadosDaChave.get("cdv"));
         }
+
+        ide.setTpAmb(AmbienteEnum.HOMOLOGACAO.getCodigo());
+        ide.setFinNFe("1");
     }
 
     // TODO: 19/07/2022 adicionar doc
