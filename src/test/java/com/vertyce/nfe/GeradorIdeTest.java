@@ -173,4 +173,11 @@ public class GeradorIdeTest {
 
         assertThat(infNFe.getIde(), notNullValue());
     }
+
+    @Test
+    public void deveRetornarLocalDateTimeAtual(){
+        LocalDateTime localDateTimeAgora = geradorIde.getLocalDateTimeAgora();
+
+        assertThat(localDateTimeAgora, notNullValue());
+    }
 }

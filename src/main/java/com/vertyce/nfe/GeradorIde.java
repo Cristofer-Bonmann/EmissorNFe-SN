@@ -7,6 +7,7 @@ import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 
 public class GeradorIde implements GeradorIdePresenter{
     @Override
@@ -48,8 +49,10 @@ public class GeradorIde implements GeradorIdePresenter{
         ide.setTpEmis(tpEmis);
     }
 
-    // TODO: 19/07/2022
+    /**
+     * @return objeto LocalDateTime que representa a data atual.
+     */
     protected LocalDateTime getLocalDateTimeAgora(){
-        return null;
+        return LocalDateTime.now(ZoneId.systemDefault());
     }
 }
