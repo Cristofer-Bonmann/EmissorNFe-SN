@@ -4,6 +4,7 @@ import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.util.ChaveUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
+import com.vertyce.enums.ETpImp;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -31,7 +32,7 @@ public class GeradorIde implements GeradorIdePresenter{
         final String tpNF = "1";
         final String idDest = null;
         final String cMunFG = "2700102";
-        final String tpImp = "1";
+        final String tpImp = ETpImp.RETRATO.getCodigo();
         final String tpEmis = "1";
 
         ide.setCUF(cUF);
