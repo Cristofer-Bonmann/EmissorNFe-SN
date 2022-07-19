@@ -40,7 +40,8 @@ public class GeradorIde implements GeradorIdePresenter{
         final String tpImp = ETpImp.RETRATO.getCodigo();
         final String tpEmis = ETpEmis.NORMAL.getCodigo();
         final String cnpj = "92638680000191";
-        final EstadosEnum estadoEnum = EstadosEnum.getByCodigoIbge(cUF);
+        final String dhCont = null;
+        final String xJust = null;
 
         ide.setCUF(cUF);
         ide.setCNF(cNF);
@@ -67,6 +68,8 @@ public class GeradorIde implements GeradorIdePresenter{
         ide.setIndPres(EIndPres.NAO_PRESENCIAL_OUTROS.getCodigo());
         ide.setProcEmi(EProcEmi.COM_APP_CONTRIB.getCodigo());
         ide.setVerProc(getVersaoSistema());
+        ide.setDhCont(dhCont);
+        ide.setXJust(xJust);
     }
 
     /**
