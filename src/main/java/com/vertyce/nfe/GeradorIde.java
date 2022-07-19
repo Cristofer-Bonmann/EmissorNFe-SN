@@ -69,7 +69,15 @@ public class GeradorIde implements GeradorIdePresenter{
         ide.setVerProc(getVersaoSistema());
     }
 
-    // TODO: 19/07/2022 adicionar doc
+    /**
+     * Gera o código do dígito verificador e a chave da NF-e com a constante 'NFe'.<br>
+     * Para pegar o dígito verificador: dadosDaChave.get("cdv"); <br>
+     * Para pegar a chave da NF-e: dadosDaChave.get("chave"); <br>
+     * @param ide dados da identificação da nota fiscal.
+     * @param cnpj CNPJ do emitente.
+     * @param dhEmi data/hora da emissão.
+     * @return dígito verificador e chave da NF-e.
+     */
     protected Map<String, String> getDadosDaChave(TNFe.InfNFe.Ide ide, String cnpj, LocalDateTime dhEmi){
         String chave = null;
         String cdv = null;
@@ -116,7 +124,9 @@ public class GeradorIde implements GeradorIdePresenter{
         return LocalDateTime.now(ZoneId.systemDefault());
     }
 
-    // TODO: 19/07/2022 inserir doc
+    /**
+     * @return versão do sistema.
+     */
     protected String getVersaoSistema() {
         return Sistema.VERSAO;
     }
