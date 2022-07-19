@@ -11,6 +11,7 @@ import com.vertyce.enums.ETpImp;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.HashMap;
 import java.util.Map;
 
 public class GeradorIde implements GeradorIdePresenter{
@@ -40,10 +41,6 @@ public class GeradorIde implements GeradorIdePresenter{
         final String cnpj = "92638680000191";
         final EstadosEnum estadoEnum = EstadosEnum.getByCodigoIbge(cUF);
 
-        ChaveUtil chaveUtil = new ChaveUtil(estadoEnum, cnpj, mod, Integer.parseInt(serie), Integer.parseInt(nNF), tpEmis, cNF, localDateTimeAgora);
-        String chave = chaveUtil.getChaveNF();
-        String cdv = chaveUtil.getDigitoVerificador();
-
         ide.setCUF(cUF);
         ide.setCNF(cNF);
         ide.setNatOp(natOp);
@@ -58,15 +55,32 @@ public class GeradorIde implements GeradorIdePresenter{
         ide.setTpImp(tpImp);
         ide.setTpEmis(tpEmis);
 
-        Map<String, String> dadosDaChave = getDadosDaChave(ide);
+        Map<String, String> dadosDaChave = getDadosDaChave(ide, cnpj, localDateTimeAgora);
         if (dadosDaChave != null) {
             ide.setCDV(dadosDaChave.get("cdv"));
         }
     }
 
     // TODO: 19/07/2022 adicionar doc
-    protected Map<String, String> getDadosDaChave(TNFe.InfNFe.Ide ide){
-        return null;
+    protected Map<String, String> getDadosDaChave(TNFe.InfNFe.Ide ide, String cnpj, LocalDateTime dhEmit){
+        ChaveUtil chaveUtil = new ChaveUtil(
+                EstadosEnum.getByCodigoIbge(ide.getCUF()),
+                cnpj,
+                ide.getMod(),
+                Integer.parseInt(ide.getSerie()),
+                Integer.parseInt(ide.getNNF()),
+                ide.getTpEmis(),
+                ide.getCNF(),
+                dhEmit);
+
+        String chave = chaveUtil.getChaveNF();
+        String cdv = chaveUtil.getDigitoVerificador();
+
+        final HashMap<String, String> dadosChave = new HashMap<>();
+        dadosChave.put("cdv", cdv);
+        dadosChave.put("chave", chave);
+
+        return dadosChave;
     }
 
     /**

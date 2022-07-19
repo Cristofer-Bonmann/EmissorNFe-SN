@@ -1,6 +1,10 @@
 package com.vertyce.nfe;
 
+import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
+import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
+import com.vertyce.enums.ETpEmis;
+import com.vertyce.util.Util;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Before;
@@ -39,10 +43,10 @@ public class GeradorIdeTest {
         final HashMap<String, String> dadosChave = new HashMap<>();
         dadosChave.put("cdv", "1");
 
-        doReturn(dadosChave).when(geradorIde).getDadosDaChave(any());
+        doReturn(dadosChave).when(geradorIde).getDadosDaChave(any(), any(), any());
         geradorIde.gerarIde(infNFe);
 
-        verify(geradorIde).getDadosDaChave(any());
+        verify(geradorIde).getDadosDaChave(any(), any(), any());
 
         TNFe.InfNFe.Ide ide = infNFe.getIde();
         assertThat(ide.getCDV(), is("1"));
@@ -109,9 +113,7 @@ public class GeradorIdeTest {
     public void deveGerarComDHEmit(){
         final TNFe.InfNFe infNFe = new TNFe.InfNFe();
         final String str = "2022-01-01 12:30:00";
-        final String pattern = "yyyy-MM-dd HH:mm:ss";
-        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern).withZone(ZoneId.of("America/Sao_Paulo"));
-        final LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
+        LocalDateTime dateTime = Util.strToLocalDateTime(str);
 
         doReturn(dateTime).when(geradorIde).getLocalDateTimeAgora();
         geradorIde.gerarIde(infNFe);
@@ -189,6 +191,44 @@ public class GeradorIdeTest {
         geradorIde.gerarIde(infNFe);
 
         assertThat(infNFe.getIde(), notNullValue());
+    }
+
+    @Test
+    public void deveRetornarChaveNfe(){
+        final String cnpj = "92638680000191";
+        final TNFe.InfNFe.Ide ide = new TNFe.InfNFe.Ide();
+        ide.setCUF("27");
+        ide.setMod(DocumentoEnum.NFE.getModelo());
+        ide.setSerie("1");
+        ide.setNNF("1");
+        ide.setTpEmis(ETpEmis.NORMAL.getCodigo());
+        ide.setCNF("00000001");
+        ide.setDhEmi("2022-01-01 12:30:00");
+        LocalDateTime localDateTime = Util.strToLocalDateTime(ide.getDhEmi());
+
+        Map<String, String> dadosDaChave = geradorIde.getDadosDaChave(ide, cnpj, localDateTime);
+
+        final String chave = dadosDaChave.get("chave");
+        assertThat(chave, is("NFe27220192638680000191550010000000011000000012"));
+    }
+
+    @Test
+    public void deveRetornarCodigoDigitoVerificador(){
+        final String cnpj = "92638680000191";
+        final TNFe.InfNFe.Ide ide = new TNFe.InfNFe.Ide();
+        ide.setCUF("27");
+        ide.setMod(DocumentoEnum.NFE.getModelo());
+        ide.setSerie("1");
+        ide.setNNF("1");
+        ide.setTpEmis(ETpEmis.NORMAL.getCodigo());
+        ide.setCNF("00000001");
+        ide.setDhEmi("2022-01-01 12:30:00");
+        LocalDateTime localDateTime = Util.strToLocalDateTime(ide.getDhEmi());
+
+        Map<String, String> dadosDaChave = geradorIde.getDadosDaChave(ide, cnpj, localDateTime);
+
+        final String cdv = dadosDaChave.get("cdv");
+        assertThat(cdv, is("2"));
     }
 
     @Test
