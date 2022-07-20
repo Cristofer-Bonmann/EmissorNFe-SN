@@ -1,5 +1,6 @@
 package com.vertyce.suite;
 
+import com.vertyce.nfe.GeradorEmitTest;
 import com.vertyce.nfe.GeradorIdeTest;
 import com.vertyce.nfe.GeradorInfNFeTest;
 import org.junit.runner.RunWith;
@@ -9,6 +10,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         GeradorInfNFeTest.class,
         GeradorIdeTest.class,
+        GeradorEmitTest.class,
 })
 public class SuiteExec {
 }
