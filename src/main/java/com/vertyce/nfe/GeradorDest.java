@@ -3,6 +3,7 @@ package com.vertyce.nfe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TEndereco;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TUf;
+import com.vertyce.enums.EIndIEDest;
 
 public class GeradorDest implements com.vertyce.nfe.GeradorDestPresenter {
 
@@ -26,7 +27,7 @@ public class GeradorDest implements com.vertyce.nfe.GeradorDestPresenter {
         final String xPais = null;
         final String fone = null;
         final String ie = "248166980";
-        final String indIEDest = "1";
+        final String indIEDest = EIndIEDest.CONTRIBUINTE_ICMS.getCodigo();
 
         final TNFe.InfNFe.Dest dest = new TNFe.InfNFe.Dest();
         infNFe.setDest(dest);
