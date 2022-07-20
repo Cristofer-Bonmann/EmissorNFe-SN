@@ -23,6 +23,9 @@ public class GeradorEmit implements com.vertyce.nfe.GeradorEmitPresenter{
         final String cPais = null;
         final String xPais = null;
         final String ie = "248166980";
+        final String ieST = null;
+        final String im = null;
+        final String cnae = null;
 
         TNFe.InfNFe.Emit emit = new TNFe.InfNFe.Emit();
         infNFe.setEmit(emit);
@@ -49,5 +52,8 @@ public class GeradorEmit implements com.vertyce.nfe.GeradorEmitPresenter{
         tEnderEmi.setXPais(xPais);
 
         emit.setIE(ie);
+        emit.setIEST(ieST);
+        emit.setIM(im);
+        emit.setCNAE(cnae);
     }
 }
