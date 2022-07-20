@@ -96,7 +96,6 @@ public class GeradorEmitTest {
         assertThat(enderEmit.getCMun(), is("2700102"));
     }
 
-
     @Test
     public void deveGerarComxBairro(){
         TNFe.InfNFe infNFe = new TNFe.InfNFe();
@@ -138,7 +137,7 @@ public class GeradorEmitTest {
     }
 
     @Test
-    public void deveGerarComNome(){
+    public void deveGerarComXNome(){
         TNFe.InfNFe infNFe = new TNFe.InfNFe();
 
         geradorEmit.gerarEmit(infNFe);
