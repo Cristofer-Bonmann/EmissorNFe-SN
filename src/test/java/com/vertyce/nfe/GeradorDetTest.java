@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
+import java.util.List;
 import java.util.regex.Matcher;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -24,8 +25,18 @@ public class GeradorDetTest {
     }
 
     @Test
+    public void deveGerarComNItem(){
+        final TNFe.InfNFe infNFe = new TNFe.InfNFe();
+
+        geradorDet.gerarDet(infNFe);
+
+        List<TNFe.InfNFe.Det> det = infNFe.getDet();
+        assertThat(det.get(0).getNItem(), CoreMatchers.is("1"));
+    }
+
+    @Test
     public void deveGerarDet(){
-        TNFe.InfNFe infNFe = new TNFe.InfNFe();
+        final TNFe.InfNFe infNFe = new TNFe.InfNFe();
 
         geradorDet.gerarDet(infNFe);
 
