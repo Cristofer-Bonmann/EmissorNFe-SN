@@ -65,4 +65,10 @@ public class GeradorDest implements com.vertyce.nfe.GeradorDestPresenter {
         dest.setIM(im);
         dest.setEmail(email);
     }
+
+    // TODO: 20/07/2022 inserir doc
+    @Override
+    public void setView(DestinatarioView view) {
+        this.view = view;
+    }
 }

@@ -5,4 +5,6 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 public interface GeradorEmitPresenter {
 
     void gerarEmit(TNFe.InfNFe infNFe);
+
+    void setView(EmitenteView view);
 }
