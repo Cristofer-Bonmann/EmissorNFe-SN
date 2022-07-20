@@ -37,6 +37,12 @@ public class EmissorNfe implements EmitenteView, DestinatarioView {
             geradorDestPresenter.setView(this);
             geradorDestPresenter.gerarDest(infNFe);
 
+            final GeradorDetPresenter geradorDetPresenter = new GeradorDet();
+            geradorDetPresenter.gerarDet(infNFe);
+
+            final GeradorProdPresenter geradorProdPresenter = new GeradorProd();
+            geradorProdPresenter.gerarProd(infNFe);
+
             try {
                 TNFe tNFe = new TNFe();
                 tNFe.setInfNFe(infNFe);
