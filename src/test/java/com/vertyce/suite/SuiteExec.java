@@ -11,6 +11,7 @@ import org.junit.runners.Suite;
         GeradorEmitTest.class,
         GeradorDestTest.class,
         GeradorDetTest.class,
+        GeradorProdTest.class,
 })
 public class SuiteExec {
 }
