@@ -9,7 +9,10 @@ public class GeradorDest implements com.vertyce.nfe.GeradorDestPresenter {
 
     private DestinatarioView view;
 
-    // TODO: 20/07/2022 inserir o doc
+    /**
+     * Gera informações do destinatário da nota fiscal.
+     * @param infNFe TAG raíz da NF-e.
+     */
     @Override
     public void gerarDest(TNFe.InfNFe infNFe) {
         final String cnpj = "92638680000191";
@@ -66,7 +69,10 @@ public class GeradorDest implements com.vertyce.nfe.GeradorDestPresenter {
         dest.setEmail(email);
     }
 
-    // TODO: 20/07/2022 inserir doc
+    /**
+     * Atribuí a View do destinatário.
+     * @param view
+     */
     @Override
     public void setView(DestinatarioView view) {
         this.view = view;

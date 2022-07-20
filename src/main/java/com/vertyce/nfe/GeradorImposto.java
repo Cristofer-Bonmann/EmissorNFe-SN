@@ -6,7 +6,10 @@ import java.util.List;
 
 public class GeradorImposto implements GeradorImpostoPresenter{
 
-    // TODO: 20/07/2022 inserir doc
+    /**
+     * Gera informações do imposto do produto/serviço da nota fiscal.
+     * @param infNFe TAG raíz da NF-e.
+     */
     @Override
     public void gerarImposto(TNFe.InfNFe infNFe) {
         List<TNFe.InfNFe.Det> dets = infNFe.getDet();

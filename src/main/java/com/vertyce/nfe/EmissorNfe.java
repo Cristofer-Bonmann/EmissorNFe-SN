@@ -13,7 +13,9 @@ import java.io.FileNotFoundException;
 
 public class EmissorNfe implements EmitenteView, DestinatarioView {
 
-    // TODO: 20/07/2022 inserir doc
+    /**
+     * Monta e valida uma nota fiscal.
+     */
     public void emitirNfe() {
         Certificado certificado = new Certificado();
         ConfiguradorNfe configuradorNfe = new ConfiguradorNfe();

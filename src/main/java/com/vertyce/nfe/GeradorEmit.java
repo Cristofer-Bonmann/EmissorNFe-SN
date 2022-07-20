@@ -64,7 +64,10 @@ public class GeradorEmit implements com.vertyce.nfe.GeradorEmitPresenter{
         emit.setCNAE(cnae);
     }
 
-    // TODO: 20/07/2022 inserir doc
+    /**
+     * Atribuí View do emitente.
+     * @param view
+     */
     @Override
     public void setView(EmitenteView view) {
         this.view = view;
