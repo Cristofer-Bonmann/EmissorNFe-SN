@@ -28,6 +28,9 @@ public class GeradorDest implements com.vertyce.nfe.GeradorDestPresenter {
         final String fone = null;
         final String ie = "248166980";
         final String indIEDest = EIndIEDest.CONTRIBUINTE_ICMS.getCodigo();
+        final String isUF = null;
+        final String im = null;
+        final String email = null;
 
         final TNFe.InfNFe.Dest dest = new TNFe.InfNFe.Dest();
         infNFe.setDest(dest);
@@ -58,5 +61,8 @@ public class GeradorDest implements com.vertyce.nfe.GeradorDestPresenter {
 
         dest.setIE(ie);
         dest.setIndIEDest(indIEDest);
+        dest.setISUF(isUF);
+        dest.setIM(im);
+        dest.setEmail(email);
     }
 }
