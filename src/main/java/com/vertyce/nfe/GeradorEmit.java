@@ -8,7 +8,10 @@ public class GeradorEmit implements com.vertyce.nfe.GeradorEmitPresenter{
 
     private EmitenteView view;
 
-    // TODO: 19/07/2022 inserir doc
+    /**
+     * Gerar dados do emitente da nota fiscal.
+     * @param infNFe TAG raíz da NF-e.
+     */
     @Override
     public void gerarEmit(TNFe.InfNFe infNFe) {
         final String cnpj = "92638680000191";
