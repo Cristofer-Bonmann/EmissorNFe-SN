@@ -7,17 +7,21 @@ import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
+import org.mockito.*;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class GeradorEmitTest {
 
     @Spy
+    @InjectMocks
     private GeradorEmit geradorEmit;
+
+    @Mock
+    private EmitenteView view;
 
     @Before
     public void setUp(){
@@ -45,15 +49,32 @@ public class GeradorEmitTest {
     }
 
     @Test
-    public void deveGerarComUF(){
-        TNFe.InfNFe infNFe = new TNFe.InfNFe();
+    public void deveGerarComUFNulo(){
+        final TNFe.InfNFe infNFe = new TNFe.InfNFe();
+        final String siglaUf = null;
 
+        when(view.getSiglaUf()).thenReturn(siglaUf);
         geradorEmit.gerarEmit(infNFe);
+
+        verify(view).getSiglaUf();
+
+        TEnderEmi enderEmit = infNFe.getEmit().getEnderEmit();
+        assertThat(enderEmit.getUF(), nullValue());
+    }
+
+    @Test
+    public void deveGerarComUF(){
+        final TNFe.InfNFe infNFe = new TNFe.InfNFe();
+        final String siglaUf = "AL";
+
+        when(view.getSiglaUf()).thenReturn(siglaUf);
+        geradorEmit.gerarEmit(infNFe);
+
+        verify(view).getSiglaUf();
 
         TEnderEmi enderEmit = infNFe.getEmit().getEnderEmit();
         assertThat(enderEmit.getUF(), is(TUfEmi.AL));
     }
-
 
     @Test
     public void deveGerarComxMun(){

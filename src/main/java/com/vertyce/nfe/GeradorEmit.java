@@ -6,6 +6,8 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TUfEmi;
 
 public class GeradorEmit implements com.vertyce.nfe.GeradorEmitPresenter{
 
+    private EmitenteView view;
+
     // TODO: 19/07/2022 inserir doc
     @Override
     public void gerarEmit(TNFe.InfNFe infNFe) {
@@ -18,7 +20,7 @@ public class GeradorEmit implements com.vertyce.nfe.GeradorEmitPresenter{
         final String xBairro = "BAIRRO DE TESTE";
         final String cMun = "2700102";
         final String xMun = "Água Branca";
-        final String uf = "AL";
+        final String uf = view.getSiglaUf();
         final String cep = "57490000";
         final String cPais = null;
         final String xPais = null;
@@ -44,8 +46,10 @@ public class GeradorEmit implements com.vertyce.nfe.GeradorEmitPresenter{
         tEnderEmi.setCMun(cMun);
         tEnderEmi.setXMun(xMun);
 
-        TUfEmi tUfEmi = TUfEmi.valueOf(uf);
-        tEnderEmi.setUF(tUfEmi);
+        if (uf != null) {
+            TUfEmi tUfEmi = TUfEmi.valueOf(uf);
+            tEnderEmi.setUF(tUfEmi);
+        }
 
         tEnderEmi.setCEP(cep);
         tEnderEmi.setCPais(cPais);

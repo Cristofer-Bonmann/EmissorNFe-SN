@@ -33,6 +33,9 @@ public class Main {
                 final String chave = geradorIdePresenter.gerarIde(infNFe);
                 infNFe.setId(chave);
 
+                final GeradorEmitPresenter geradorEmitPresenter = new GeradorEmit();
+                geradorEmitPresenter.gerarEmit(infNFe);
+
                 try {
                     TNFe tNFe = new TNFe();
                     tNFe.setInfNFe(infNFe);
