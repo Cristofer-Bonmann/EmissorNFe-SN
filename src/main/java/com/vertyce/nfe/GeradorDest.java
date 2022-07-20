@@ -12,6 +12,7 @@ public class GeradorDest implements com.vertyce.nfe.GeradorDestPresenter {
     @Override
     public void gerarDest(TNFe.InfNFe infNFe) {
         final String cnpj = "92638680000191";
+        final String idEstrangeiro = null;
         final String xNome = "TESTE-HOMOLOGAÇÂO";
         final String xLgr = "LOGRADOURO DE TESTE";
         final String nro = "999";
@@ -23,12 +24,15 @@ public class GeradorDest implements com.vertyce.nfe.GeradorDestPresenter {
         final String cep = "57490000";
         final String cPais = null;
         final String xPais = null;
+        final String fone = null;
         final String ie = "248166980";
+        final String indIEDest = "1";
 
         final TNFe.InfNFe.Dest dest = new TNFe.InfNFe.Dest();
         infNFe.setDest(dest);
 
         dest.setCNPJ(cnpj);
+        dest.setIdEstrangeiro(idEstrangeiro);
         dest.setXNome(xNome);
 
         TEndereco enderDest = new TEndereco();
@@ -49,7 +53,9 @@ public class GeradorDest implements com.vertyce.nfe.GeradorDestPresenter {
         enderDest.setCEP(cep);
         enderDest.setCPais(cPais);
         enderDest.setXPais(xPais);
+        enderDest.setFone(fone);
 
         dest.setIE(ie);
+        dest.setIndIEDest(indIEDest);
     }
 }

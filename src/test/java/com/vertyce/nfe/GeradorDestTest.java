@@ -30,6 +30,16 @@ public class GeradorDestTest {
     }
 
     @Test
+    public void deveGerarComIndIEDest(){
+        TNFe.InfNFe infNFe = new TNFe.InfNFe();
+
+        geradorDest.gerarDest(infNFe);
+
+        TNFe.InfNFe.Dest emit = infNFe.getDest();
+        assertThat(emit.getIndIEDest(), is("1"));
+    }
+
+    @Test
     public void deveGerarComIE(){
         TNFe.InfNFe infNFe = new TNFe.InfNFe();
 
