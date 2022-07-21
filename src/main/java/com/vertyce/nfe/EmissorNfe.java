@@ -7,6 +7,8 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TEnviNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 import com.vertyce.certificado.Certificado;
+import com.vertyce.nfe.icms.GeradorICMS00;
+import com.vertyce.nfe.icms.GeradorICMS00Presenter;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
@@ -44,6 +46,15 @@ public class EmissorNfe implements EmitenteView, DestinatarioView {
 
             final GeradorProdPresenter geradorProdPresenter = new GeradorProd();
             geradorProdPresenter.gerarProd(infNFe);
+
+            final GeradorImpostoPresenter geradorImpostoPresenter = new GeradorImposto();
+            geradorImpostoPresenter.gerarImposto(infNFe);
+
+            final GeradorICMSPresenter geradorICMSPresenter = new GeradorICMS();
+            geradorICMSPresenter.gerarICMS(infNFe);
+
+            final GeradorICMS00Presenter geradorICMS00Presenter = new GeradorICMS00();
+            geradorICMS00Presenter.geraICMS00(infNFe);
 
             try {
                 TNFe tNFe = new TNFe();

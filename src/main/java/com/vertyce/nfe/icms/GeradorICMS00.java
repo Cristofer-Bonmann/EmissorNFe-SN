@@ -12,7 +12,9 @@ public class GeradorICMS00 implements com.vertyce.nfe.icms.GeradorICMS00Presente
     public void geraICMS00(TNFe.InfNFe infNFe) {
         List<TNFe.InfNFe.Det> dets = infNFe.getDet();
 
-        dets.stream().map(det -> det.getImposto())
+        dets.stream()
+                .filter(det -> det.getImposto() != null)
+                .map(det -> det.getImposto())
                 .map(imposto -> {
                     Object valueIcms = imposto.getContent().get(0).getValue();
                     TNFe.InfNFe.Det.Imposto.ICMS icms = (TNFe.InfNFe.Det.Imposto.ICMS) valueIcms;
