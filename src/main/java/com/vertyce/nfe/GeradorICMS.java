@@ -7,7 +7,10 @@ import java.util.List;
 
 public class GeradorICMS implements GeradorICMSPresenter {
 
-    // TODO: 20/07/2022 inserir doc
+    /**
+     * Gera informações da tributação ICMS.
+     * @param infNFe
+     */
     @Override
     public void gerarICMS(TNFe.InfNFe infNFe) {
         List<TNFe.InfNFe.Det> dets = infNFe.getDet();
