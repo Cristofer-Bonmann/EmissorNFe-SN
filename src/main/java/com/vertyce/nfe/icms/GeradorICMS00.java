@@ -15,8 +15,15 @@ public class GeradorICMS00 implements com.vertyce.nfe.icms.GeradorICMS00Presente
         dets.stream()
                 .filter(det -> det.getImposto() != null)
                 .map(det -> det.getImposto())
+                .filter(imposto -> imposto.getContent().size() >= 1)
+                .filter(imposto -> imposto.getContent().get(0).getValue() != null)
                 .map(imposto -> {
                     Object valueIcms = imposto.getContent().get(0).getValue();
+                    return valueIcms;
+
+                })
+//                .filter(valueIcms -> valueIcms instanceof TNFe.InfNFe.Det.Imposto.ICMS)
+                .map(valueIcms -> {
                     TNFe.InfNFe.Det.Imposto.ICMS icms = (TNFe.InfNFe.Det.Imposto.ICMS) valueIcms;
                     return icms;
 

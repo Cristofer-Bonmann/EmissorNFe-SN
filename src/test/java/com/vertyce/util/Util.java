@@ -3,6 +3,7 @@ package com.vertyce.util;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.ObjectFactory;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe;
+import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS;
 
 import javax.xml.bind.JAXBElement;
 import java.time.LocalDateTime;
@@ -20,7 +21,7 @@ public class Util {
         infNFe.getDet().get(0)
                 .getImposto().getContent()
                 .add(new ObjectFactory()
-                        .createTNFeInfNFeDetImpostoICMS(new TNFe.InfNFe.Det.Imposto.ICMS()));
+                        .createTNFeInfNFeDetImpostoICMS(new ICMS()));
     }
 
     /**
@@ -31,9 +32,15 @@ public class Util {
      * @param infNFe
      * @return objeto ICMS.
      */
-    public static InfNFe.Det.Imposto.ICMS getICMS(InfNFe infNFe){
-        List<JAXBElement<?>> jaxeICMS = infNFe.getDet().get(0).getImposto().getContent();
-        return (InfNFe.Det.Imposto.ICMS) jaxeICMS.get(0).getValue();
+    public static ICMS getICMS(InfNFe infNFe){
+        ICMS icms = null;
+        List<JAXBElement<?>> content = infNFe.getDet().get(0).getImposto().getContent();
+
+        if (content != null && content.size() >= 1) {
+            List<JAXBElement<?>> jaxeICMS = infNFe.getDet().get(0).getImposto().getContent();
+            icms = (ICMS) jaxeICMS.get(0).getValue();
+        }
+        return icms;
     }
 
     /**

@@ -109,7 +109,17 @@ public class GeradorICMS00Test {
     }
 
     @Test
-    public void naoDeveGerarICMS00SemImposto(){
+    public void naoDeveGerarICMS00SemICMS(){
+        InfNFe infNFe = Util.getInfNFeComImposto();
+
+        geradorICMS00.geraICMS00(infNFe);
+
+        Det.Imposto.ICMS icms = Util.getICMS(infNFe);
+        assertThat(icms, nullValue());
+    }
+
+    @Test
+    public void deveGerarICMS00SemImposto(){
         final InfNFe infNFe = new InfNFe();
         infNFe.getDet().add(new Det());
 
