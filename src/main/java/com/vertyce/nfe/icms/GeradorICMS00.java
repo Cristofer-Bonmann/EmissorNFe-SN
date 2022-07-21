@@ -17,6 +17,15 @@ public class GeradorICMS00 implements com.vertyce.nfe.icms.GeradorICMS00Presente
                     TNFe.InfNFe.Det.Imposto.ICMS icms = (TNFe.InfNFe.Det.Imposto.ICMS) valueIcms;
                     return icms;
 
-                }).forEach(icms -> icms.setICMS00(new TNFe.InfNFe.Det.Imposto.ICMS.ICMS00()));
+                }).forEach(icms -> {
+                    final String orig = "0";
+                    final String cst = "00";
+
+                    TNFe.InfNFe.Det.Imposto.ICMS.ICMS00 icms00 = new TNFe.InfNFe.Det.Imposto.ICMS.ICMS00();
+                    icms.setICMS00(icms00);
+
+                    icms00.setOrig(orig);
+                    icms00.setCST(cst);
+                });
     }
 }
