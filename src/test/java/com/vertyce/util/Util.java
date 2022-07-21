@@ -10,13 +10,24 @@ import java.util.List;
 
 public class Util {
 
-    // TODO: 20/07/2022 inserir doc
+    /**
+     * Captura o primeiro item da lista de Det's do parâmetro InfNFe; <br>
+     * Captura o objeto imposto desse item; <br>
+     * Captura a lista do tipo JAXBElement desse Imposto; <br>
+     * Dessa lista é retornado o valor do primeiro item convertido em um objeto ICMS.
+     * @param infNFe
+     * @return objeto ICMS.
+     */
     public static TNFe.InfNFe.Det.Imposto.ICMS getICMS(TNFe.InfNFe infNFe){
         List<JAXBElement<?>> jaxeICMS = infNFe.getDet().get(0).getImposto().getContent();
         return (TNFe.InfNFe.Det.Imposto.ICMS) jaxeICMS.get(0).getValue();
     }
 
-    // TODO: 20/07/2022 inserir doc
+    /**
+     * Cria um novo objeto InfNFe, cria um novo objeto Det e inseri ele objeto na lista de det's do InfNFe.
+     * No Det criado, será adicionado um novo objeto Imposto.
+     * @return novo InfNFe.
+     */
     public static TNFe.InfNFe getInfNfeComImposto(){
         final TNFe.InfNFe infNFe = new TNFe.InfNFe();
         TNFe.InfNFe.Det det = new TNFe.InfNFe.Det();
