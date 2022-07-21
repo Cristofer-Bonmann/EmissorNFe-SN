@@ -11,6 +11,9 @@ import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -106,6 +109,27 @@ public class GeradorICMS00Test {
         Det.Imposto.ICMS icms = Util.getICMS(infNFe);
         Det.Imposto.ICMS.ICMS00 icms00 = icms.getICMS00();
         assertThat(icms00, notNullValue());
+    }
+
+    @Test
+    public void naoDeveGerarICMS00SemContentICMS(){
+        final InfNFe infNFe = new InfNFe();
+
+        final Det.Imposto imposto = new Det.Imposto();
+        JAXBElement<String> stringJAXBElement = new JAXBElement<>(new QName("", ""), String.class, "Não é ICMS");
+        imposto.getContent().add(stringJAXBElement);
+
+        final Det det = new Det();
+        det.setImposto(imposto);
+
+        infNFe.getDet().add(det);
+
+        geradorICMS00.geraICMS00(infNFe);
+
+        JAXBElement<?> jaxbElement = infNFe.getDet().get(0).getImposto().getContent().get(0);
+        boolean ehICMS = jaxbElement.getValue() instanceof Det.Imposto.ICMS;
+
+        assertThat(ehICMS, is(false));
     }
 
     @Test

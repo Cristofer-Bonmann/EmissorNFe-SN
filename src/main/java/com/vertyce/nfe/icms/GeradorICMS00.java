@@ -22,7 +22,7 @@ public class GeradorICMS00 implements com.vertyce.nfe.icms.GeradorICMS00Presente
                     return valueIcms;
 
                 })
-//                .filter(valueIcms -> valueIcms instanceof TNFe.InfNFe.Det.Imposto.ICMS)
+                .filter(valueIcms -> valueIcms instanceof TNFe.InfNFe.Det.Imposto.ICMS)
                 .map(valueIcms -> {
                     TNFe.InfNFe.Det.Imposto.ICMS icms = (TNFe.InfNFe.Det.Imposto.ICMS) valueIcms;
                     return icms;
