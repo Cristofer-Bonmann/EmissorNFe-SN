@@ -13,6 +13,7 @@ import org.junit.runners.Suite;
         GeradorDetTest.class,
         GeradorProdTest.class,
         GeradorImpostoTest.class,
+        GeradorICMSTest.class,
 })
 public class SuiteExec {
 }
