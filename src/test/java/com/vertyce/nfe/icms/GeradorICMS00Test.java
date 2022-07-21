@@ -25,6 +25,55 @@ public class GeradorICMS00Test {
     }
 
     @Test
+    public void deveGerarICMS00ComVICMS(){
+        final InfNFe infNFe = Util.getInfNFeComImposto();
+        Util.addICMS(infNFe);
+
+        geradorICMS00.geraICMS00(infNFe);
+
+        InfNFe.Det.Imposto.ICMS icms = Util.getICMS(infNFe);
+        InfNFe.Det.Imposto.ICMS.ICMS00 icms00 = icms.getICMS00();
+        assertThat(icms00.getVICMS(), is("90.00"));
+    }
+
+    @Test
+    public void deveGerarICMS00ComPICMS(){
+        final InfNFe infNFe = Util.getInfNFeComImposto();
+        Util.addICMS(infNFe);
+
+        geradorICMS00.geraICMS00(infNFe);
+
+        InfNFe.Det.Imposto.ICMS icms = Util.getICMS(infNFe);
+        InfNFe.Det.Imposto.ICMS.ICMS00 icms00 = icms.getICMS00();
+        assertThat(icms00.getPICMS(), is("10.0000"));
+    }
+
+    @Test
+    public void deveGerarICMS00ComVBC(){
+        final InfNFe infNFe = Util.getInfNFeComImposto();
+        Util.addICMS(infNFe);
+
+        geradorICMS00.geraICMS00(infNFe);
+
+        InfNFe.Det.Imposto.ICMS icms = Util.getICMS(infNFe);
+        InfNFe.Det.Imposto.ICMS.ICMS00 icms00 = icms.getICMS00();
+        assertThat(icms00.getVBC(), is("100.00"));
+    }
+
+    @Test
+    public void deveGerarICMS00ComModBC(){
+        final InfNFe infNFe = Util.getInfNFeComImposto();
+        Util.addICMS(infNFe);
+
+        geradorICMS00.geraICMS00(infNFe);
+
+        InfNFe.Det.Imposto.ICMS icms = Util.getICMS(infNFe);
+        InfNFe.Det.Imposto.ICMS.ICMS00 icms00 = icms.getICMS00();
+        assertThat(icms00.getModBC(), is("3"));
+    }
+
+
+    @Test
     public void deveGerarICMS00ComCST(){
         final InfNFe infNFe = Util.getInfNFeComImposto();
         Util.addICMS(infNFe);
