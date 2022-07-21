@@ -24,7 +24,7 @@ public class GeradorICMS00Test {
     @Test
     public void deveGerarICMS00(){
         final TNFe.InfNFe infNFe = Util.getInfNFeComImposto();
-        infNFe.getDet().get(0).getImposto().getContent().add(new ObjectFactory().createTNFeInfNFeDetImpostoICMS(new TNFe.InfNFe.Det.Imposto.ICMS()));
+        Util.addICMS(infNFe);
 
         geradorICMS00.geraICMS00(infNFe);
 
