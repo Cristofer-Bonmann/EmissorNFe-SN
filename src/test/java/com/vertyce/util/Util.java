@@ -28,7 +28,7 @@ public class Util {
      * No Det criado, será adicionado um novo objeto Imposto.
      * @return novo InfNFe.
      */
-    public static TNFe.InfNFe getInfNfeComImposto(){
+    public static TNFe.InfNFe getInfNFeComImposto(){
         final TNFe.InfNFe infNFe = new TNFe.InfNFe();
         TNFe.InfNFe.Det det = new TNFe.InfNFe.Det();
         det.setImposto(new TNFe.InfNFe.Det.Imposto());
