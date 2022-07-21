@@ -2,3 +2,4 @@ target
 .idea
 
 *.pfx
+pwd_certificado.txt
