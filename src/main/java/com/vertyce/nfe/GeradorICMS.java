@@ -11,7 +11,9 @@ public class GeradorICMS implements GeradorICMSPresenter {
     @Override
     public void gerarICMS(TNFe.InfNFe infNFe) {
         List<TNFe.InfNFe.Det> dets = infNFe.getDet();
-        dets.stream().map(det -> det.getImposto())
+        dets.stream()
+                .filter(det -> det.getImposto() != null)
+                .map(det -> det.getImposto())
                 .forEach(imposto -> {
                     TNFe.InfNFe.Det.Imposto.ICMS icms = new TNFe.InfNFe.Det.Imposto.ICMS();
                     imposto.getContent().add(new ObjectFactory().createTNFeInfNFeDetImpostoICMS(icms));
