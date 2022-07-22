@@ -70,13 +70,11 @@ public class EmissorNfe implements EmitenteView, DestinatarioView {
                 throw new RuntimeException(e);
             }
 
-        } catch (
-                CertificadoException e) {
+        } catch (CertificadoException e) {
             System.out.println("Certificado digital inválido");
 
-        } catch (
-                FileNotFoundException e) {
-            System.out.println("Arquivo do certificado digital não foi encontrado!");
+        } catch (FileNotFoundException e) {
+            System.out.println("Não foi possível carregar os dados do certificado digital!");
         }
     }
 

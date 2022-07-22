@@ -6,10 +6,15 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS;
 
 import javax.xml.bind.JAXBElement;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import static java.io.File.createTempFile;
 
 public class Util {
 
@@ -55,6 +60,27 @@ public class Util {
         infNFe.getDet().add(det);
 
         return infNFe;
+    }
+
+    // TODO: 21/07/2022 inserir doc
+    public static File criaEscreveArquivoTemp(String prefixo, String sufixo, String conteudo){
+        File tempFile;
+        try {
+            tempFile = createTempFile(prefixo, sufixo);
+
+            try {
+                FileWriter myWriter = new FileWriter(tempFile.getAbsolutePath());
+                myWriter.write(conteudo);
+                myWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return tempFile;
     }
 
     /**
