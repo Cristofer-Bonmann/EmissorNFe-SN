@@ -16,7 +16,7 @@ public class GeradorICMS00 implements IGeradorICMS00 {
      */
     @Override
     public void geraICMS00(TNFe.InfNFe infNFe) {
-        List<TNFe.InfNFe.Det> dets = infNFe.getDet();
+        final List<TNFe.InfNFe.Det> dets = infNFe.getDet();
 
         dets.stream()
                 .filter(det -> det.getImposto() != null)

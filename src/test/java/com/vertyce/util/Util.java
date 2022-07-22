@@ -4,6 +4,7 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.ObjectFactory;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS;
+import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.PIS;
 
 import javax.xml.bind.JAXBElement;
 import java.io.File;
@@ -17,6 +18,14 @@ import java.util.List;
 import static java.io.File.createTempFile;
 
 public class Util {
+
+    // TODO: 22/07/2022 inserir doc
+    public static void addPIS(InfNFe infNFe) {
+        infNFe.getDet().get(0)
+                .getImposto().getContent()
+                .add(new ObjectFactory()
+                        .createTNFeInfNFeDetImpostoPIS(new PIS()));
+    }
 
     /**
      * Adiciona um novo objeto ICMS na Content ICMS, do objeto Imposto, do primeiro item Det do parâmetro InfNFe.
