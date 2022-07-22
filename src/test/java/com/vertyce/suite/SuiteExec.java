@@ -3,6 +3,7 @@ package com.vertyce.suite;
 import com.vertyce.certificado.CertificadoTest;
 import com.vertyce.nfe.*;
 import com.vertyce.nfe.icms.GeradorICMS00Test;
+import com.vertyce.nfe.icmssn.GeradorICMSSN101Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -18,6 +19,7 @@ import org.junit.runners.Suite;
         GeradorImpostoTest.class,
         GeradorICMSTest.class,
         GeradorICMS00Test.class,
+        GeradorICMSSN101Test.class,
 })
 public class SuiteExec {
 }
