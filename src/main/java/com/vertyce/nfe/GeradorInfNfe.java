@@ -3,7 +3,7 @@ package com.vertyce.nfe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.util.ConstantesUtil;
 
-public class GeradorInfNfe implements GeradorInfNfePresenter{
+public class GeradorInfNfe implements IGeradorInfNfe {
     /**
      * Gera e retorna grupo raíz das informações da NF-e.
      * @return objeto InfNFe.

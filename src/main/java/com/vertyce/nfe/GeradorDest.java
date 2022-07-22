@@ -5,7 +5,7 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TUf;
 import com.vertyce.enums.EIndIEDest;
 
-public class GeradorDest implements com.vertyce.nfe.GeradorDestPresenter {
+public class GeradorDest implements IGeradorDest {
 
     private DestinatarioView view;
 

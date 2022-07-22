@@ -7,8 +7,8 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TEnviNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 import com.vertyce.certificado.Certificado;
-import com.vertyce.nfe.icms.GeradorICMS00;
-import com.vertyce.nfe.icms.GeradorICMS00Presenter;
+import com.vertyce.nfe.icmssn.GeradorICMSSN101;
+import com.vertyce.nfe.icmssn.IGeradorICMSSN101;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
@@ -26,35 +26,35 @@ public class EmissorNfe implements EmitenteView, DestinatarioView {
             br.com.swconsultoria.certificado.Certificado certificadoPfx = certificado.getCertifidoA1Pfx();
             ConfiguracoesNfe configuracoesNfe = configuradorNfe.criarConfiguracoesNfe(certificadoPfx);
 
-            final GeradorInfNfePresenter geradorInfNfePresenter = new GeradorInfNfe();
-            TNFe.InfNFe infNFe = geradorInfNfePresenter.gerarInfNFe();
+            final IGeradorInfNfe iGeradorInfNfe = new GeradorInfNfe();
+            TNFe.InfNFe infNFe = iGeradorInfNfe.gerarInfNFe();
 
-            final GeradorIdePresenter geradorIdePresenter = new GeradorIde();
-            final String chave = geradorIdePresenter.gerarIde(infNFe);
+            final IGeradorIde iGeradorIde = new GeradorIde();
+            final String chave = iGeradorIde.gerarIde(infNFe);
             infNFe.setId(chave);
 
-            final GeradorEmitPresenter geradorEmitPresenter = new GeradorEmit();
-            geradorEmitPresenter.setView(this);
-            geradorEmitPresenter.gerarEmit(infNFe);
+            final IGeradorEmit iGeradorEmit = new GeradorEmit();
+            iGeradorEmit.setView(this);
+            iGeradorEmit.gerarEmit(infNFe);
 
-            final GeradorDestPresenter geradorDestPresenter = new GeradorDest();
-            geradorDestPresenter.setView(this);
-            geradorDestPresenter.gerarDest(infNFe);
+            final IGeradorDest iGeradorDest = new GeradorDest();
+            iGeradorDest.setView(this);
+            iGeradorDest.gerarDest(infNFe);
 
-            final GeradorDetPresenter geradorDetPresenter = new GeradorDet();
-            geradorDetPresenter.gerarDet(infNFe);
+            final IGeradorDet iGeradorDet = new GeradorDet();
+            iGeradorDet.gerarDet(infNFe);
 
-            final GeradorProdPresenter geradorProdPresenter = new GeradorProd();
-            geradorProdPresenter.gerarProd(infNFe);
+            final IGeradorProd iGeradorProd = new GeradorProd();
+            iGeradorProd.gerarProd(infNFe);
 
-            final GeradorImpostoPresenter geradorImpostoPresenter = new GeradorImposto();
-            geradorImpostoPresenter.gerarImposto(infNFe);
+            final IGeradorImposto iGeradorImposto = new GeradorImposto();
+            iGeradorImposto.gerarImposto(infNFe);
 
-            final GeradorICMSPresenter geradorICMSPresenter = new GeradorICMS();
-            geradorICMSPresenter.gerarICMS(infNFe);
+            final IGeradorICMS iGeradorICMS = new GeradorICMS();
+            iGeradorICMS.gerarICMS(infNFe);
 
-            final GeradorICMS00Presenter geradorICMS00Presenter = new GeradorICMS00();
-            geradorICMS00Presenter.geraICMS00(infNFe);
+            final IGeradorICMSSN101 igeradorICMSSN101 = new GeradorICMSSN101();
+            igeradorICMSSN101.gerarICMSSN101(infNFe);
 
             try {
                 TNFe tNFe = new TNFe();

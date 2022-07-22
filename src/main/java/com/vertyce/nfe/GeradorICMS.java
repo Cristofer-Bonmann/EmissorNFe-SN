@@ -5,7 +5,7 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 
 import java.util.List;
 
-public class GeradorICMS implements GeradorICMSPresenter {
+public class GeradorICMS implements IGeradorICMS {
 
     /**
      * Gera informações da tributação ICMS.

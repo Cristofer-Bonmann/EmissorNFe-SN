@@ -4,7 +4,7 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 
 import java.util.List;
 
-public class GeradorImposto implements GeradorImpostoPresenter{
+public class GeradorImposto implements IGeradorImposto {
 
     /**
      * Gera informações do imposto do produto/serviço da nota fiscal.

@@ -2,7 +2,7 @@ package com.vertyce.nfe;
 
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 
-public interface GeradorProdPresenter {
+public interface IGeradorInfNfe {
 
-    void gerarProd(TNFe.InfNFe infNFe);
+    TNFe.InfNFe gerarInfNFe();
 }

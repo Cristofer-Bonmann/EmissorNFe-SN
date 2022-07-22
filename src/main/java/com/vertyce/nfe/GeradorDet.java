@@ -2,7 +2,7 @@ package com.vertyce.nfe;
 
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 
-public class GeradorDet implements GeradorDetPresenter{
+public class GeradorDet implements IGeradorDet {
     /**
      * Gera detalhamento dos produtos e serviços da nota fiscal.
      * @param infNFe TAG raiz da NF-e.

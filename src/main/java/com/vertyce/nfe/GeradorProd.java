@@ -4,7 +4,7 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 
 import java.util.List;
 
-public class GeradorProd implements GeradorProdPresenter{
+public class GeradorProd implements IGeradorProd {
     /**
      * Gera inforamções do produto da nota fiscal.
      * @param infNFe TAG raíz da NF-e.

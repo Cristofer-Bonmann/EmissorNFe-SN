@@ -6,7 +6,7 @@ import com.vertyce.enums.EModBC;
 
 import java.util.List;
 
-public class GeradorICMS00 implements com.vertyce.nfe.icms.GeradorICMS00Presenter {
+public class GeradorICMS00 implements IGeradorICMS00 {
     /**
      * Gera os informações para a tributação do ICMS 00. <br>
      * O objeto Imposto deve ter pelo menos um item na sua lista de Content(lista JAXBElement); <br>

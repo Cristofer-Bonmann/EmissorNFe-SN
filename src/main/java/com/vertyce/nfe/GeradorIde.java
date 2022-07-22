@@ -10,12 +10,11 @@ import com.vertyce.enums.*;
 import com.vertyce.sistema.Sistema;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GeradorIde implements GeradorIdePresenter{
+public class GeradorIde implements IGeradorIde {
     /**
      * Gera objeto Ide com informações da identificação da nota fiscal.
      * @param infNFe TAG raíz da nota fiscal.

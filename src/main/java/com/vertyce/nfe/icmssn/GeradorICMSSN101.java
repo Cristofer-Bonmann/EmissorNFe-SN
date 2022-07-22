@@ -3,11 +3,10 @@ package com.vertyce.nfe.icmssn;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS.ICMSSN101;
-import com.vertyce.enums.EModBC;
 
 import java.util.List;
 
-public class GeradorICMSSN101 implements GeradorICMSSN101Presenter {
+public class GeradorICMSSN101 implements IGeradorICMSSN101 {
     // TODO: 21/07/2022 inserir doc
     @Override
     public void gerarICMSSN101(TNFe.InfNFe infNFe) {

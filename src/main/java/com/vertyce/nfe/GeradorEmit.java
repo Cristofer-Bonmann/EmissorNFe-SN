@@ -4,7 +4,7 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TEnderEmi;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TUfEmi;
 
-public class GeradorEmit implements com.vertyce.nfe.GeradorEmitPresenter{
+public class GeradorEmit implements IGeradorEmit {
 
     private EmitenteView view;
 
