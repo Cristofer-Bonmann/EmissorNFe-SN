@@ -30,6 +30,31 @@ public class Util {
                         .createTNFeInfNFeDetImpostoPIS(new PIS()));
     }
 
+    public static PIS getPIS(InfNFe infNFe){
+        final List<TNFe.InfNFe.Det> dets = infNFe.getDet();
+
+        PIS pis = dets.stream()
+                .filter(det -> det.getImposto() != null)
+                .map(det -> det.getImposto())
+                .filter(imposto -> !imposto.getContent().isEmpty())
+
+                .map(imposto -> {
+                    return imposto.getContent();
+                })
+
+                .map(jaxbElements -> {
+                    Object objectPIS = jaxbElements.stream()
+                            .filter(jaxb -> jaxb.getDeclaredType().equals(PIS.class))
+                            .map(jaxb -> jaxb.getValue())
+                            .findFirst().orElse(null);
+                    return objectPIS;
+                })
+                .map(objectPis -> (PIS) objectPis)
+                .findFirst()
+                .orElse(null);
+        return pis;
+    }
+
     /**
      * Adiciona um novo objeto ICMS na Content ICMS, do objeto Imposto, do primeiro item Det do parâmetro InfNFe.
      * @param infNFe
