@@ -45,14 +45,22 @@ public class Util {
      * @return objeto PIS.
      */
     public static PIS getPIS(InfNFe infNFe){
-        final Det det = infNFe.getDet().get(0);
+        PIS pis = null;
 
-        PIS pis = det.getImposto().getContent().stream()
-                .filter(jaxb -> jaxb.getDeclaredType().equals(PIS.class))
-                .map(jaxbElement -> jaxbElement.getValue())
-                .map(objectPis -> (PIS) objectPis)
-                .findFirst()
-                .orElse(null);
+        final List<Det> dets = infNFe.getDet();
+        if (dets.size() >= 1) {
+            final Det det = dets.get(0);
+            final Det.Imposto imposto = det.getImposto();
+
+            if (imposto != null) {
+                pis = det.getImposto().getContent().stream()
+                        .filter(jaxb -> jaxb.getDeclaredType().equals(PIS.class))
+                        .map(jaxbElement -> jaxbElement.getValue())
+                        .map(objectPis -> (PIS) objectPis)
+                        .findFirst()
+                        .orElse(null);
+            }
+        }
         return pis;
     }
 
