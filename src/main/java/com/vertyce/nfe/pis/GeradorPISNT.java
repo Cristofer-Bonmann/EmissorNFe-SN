@@ -4,6 +4,7 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.PIS;
 
 import java.util.List;
+import java.util.Objects;
 
 public class GeradorPISNT implements IGeradorPISNT {
     // TODO: 22/07/2022 inserir doc
@@ -14,16 +15,23 @@ public class GeradorPISNT implements IGeradorPISNT {
         dets.stream()
                 .filter(det -> det.getImposto() != null)
                 .map(det -> det.getImposto())
-                .filter(imposto -> imposto.getContent().size() >= 1)
-                .filter(imposto -> imposto.getContent().get(0).getValue() != null)
-                .map(imposto -> {
-                    Object valueIcms = imposto.getContent().get(0).getValue();
-                    return valueIcms;
+                .filter(imposto -> !imposto.getContent().isEmpty())
 
+                .map(imposto -> {
+                    return imposto.getContent();
                 })
-                .filter(valuePis -> valuePis instanceof PIS)
+
+                .map(jaxbElements -> {
+                    Object objectPIS = jaxbElements.stream()
+                            .filter(jaxb -> jaxb.getDeclaredType().equals(PIS.class))
+                            .map(jaxb -> jaxb.getValue())
+                            .findFirst().orElse(null);
+                    return objectPIS;
+                })
+
+                .filter(Objects::nonNull)
                 .map(valuePis -> {
-                    final PIS pis = (TNFe.InfNFe.Det.Imposto.PIS) valuePis;
+                    final PIS pis = (PIS) valuePis;
                     return pis;
 
                 }).forEach(pis -> {

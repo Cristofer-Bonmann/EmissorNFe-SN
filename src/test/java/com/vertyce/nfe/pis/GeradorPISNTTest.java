@@ -26,11 +26,12 @@ public class GeradorPISNTTest {
     @Test
     public void deveGerarPISNT(){
         final InfNFe infNFe = Util.getInfNFeComImposto();
+        Util.addICMS(infNFe);
         Util.addPIS(infNFe);
 
         geradorPisNT.gerarPisNT(infNFe);
 
-        JAXBElement<?> jaxbElement = infNFe.getDet().get(0).getImposto().getContent().get(0);
+        JAXBElement<?> jaxbElement = infNFe.getDet().get(0).getImposto().getContent().get(1);
         PIS pis = (PIS) jaxbElement.getValue();
         assertThat(pis.getPISNT(), notNullValue());
     }
