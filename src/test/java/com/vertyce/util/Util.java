@@ -3,6 +3,7 @@ package com.vertyce.util;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.ObjectFactory;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe;
+import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.PIS;
 
@@ -30,25 +31,25 @@ public class Util {
                         .createTNFeInfNFeDetImpostoPIS(new PIS()));
     }
 
+    /**
+     * Retorna objeto PIS do imposto do primeiro Det do objeto InfNFe. <br>
+     * isola lista de Det's; <br>
+     * filtra pelo objeto imposto diferente de nulo; <br>
+     * retorna esse objeto Imposto; <br>
+     * filtra pela lista de JAXBElement(imposto.Content) que seja diferente de vazia; <br>
+     * retorna lista de elementos do Content; <br>
+     * para cada elemento dessa lista: filtra-se pelos itens do tipo PIS e retorna o primeiro objeto encontrado ou retorna nulo; <br>
+     * converte o objeto retornado para PIS ou então retorna-se nulo. <br>
+     *
+     * @param infNFe
+     * @return objeto PIS.
+     */
     public static PIS getPIS(InfNFe infNFe){
-        final List<TNFe.InfNFe.Det> dets = infNFe.getDet();
+        final Det det = infNFe.getDet().get(0);
 
-        PIS pis = dets.stream()
-                .filter(det -> det.getImposto() != null)
-                .map(det -> det.getImposto())
-                .filter(imposto -> !imposto.getContent().isEmpty())
-
-                .map(imposto -> {
-                    return imposto.getContent();
-                })
-
-                .map(jaxbElements -> {
-                    Object objectPIS = jaxbElements.stream()
-                            .filter(jaxb -> jaxb.getDeclaredType().equals(PIS.class))
-                            .map(jaxb -> jaxb.getValue())
-                            .findFirst().orElse(null);
-                    return objectPIS;
-                })
+        PIS pis = det.getImposto().getContent().stream()
+                .filter(jaxb -> jaxb.getDeclaredType().equals(PIS.class))
+                .map(jaxbElement -> jaxbElement.getValue())
                 .map(objectPis -> (PIS) objectPis)
                 .findFirst()
                 .orElse(null);
@@ -92,8 +93,8 @@ public class Util {
      */
     public static InfNFe getInfNFeComImposto(){
         final InfNFe infNFe = new InfNFe();
-        InfNFe.Det det = new InfNFe.Det();
-        det.setImposto(new InfNFe.Det.Imposto());
+        Det det = new Det();
+        det.setImposto(new Det.Imposto());
         infNFe.getDet().add(det);
 
         return infNFe;
