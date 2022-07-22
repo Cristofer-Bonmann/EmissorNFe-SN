@@ -9,6 +9,10 @@ import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 import com.vertyce.certificado.Certificado;
 import com.vertyce.nfe.icmssn.GeradorICMSSN101;
 import com.vertyce.nfe.icmssn.IGeradorICMSSN101;
+import com.vertyce.nfe.pis.GeradorPIS;
+import com.vertyce.nfe.pis.GeradorPISNT;
+import com.vertyce.nfe.pis.IGeradorPIS;
+import com.vertyce.nfe.pis.IGeradorPISNT;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
@@ -55,6 +59,12 @@ public class EmissorNfe implements EmitenteView, DestinatarioView {
 
             final IGeradorICMSSN101 igeradorICMSSN101 = new GeradorICMSSN101();
             igeradorICMSSN101.gerarICMSSN101(infNFe);
+
+            final IGeradorPIS iGeradorPIS = new GeradorPIS();
+            iGeradorPIS.gerarPIS(infNFe);
+
+            final IGeradorPISNT iGeradorPISNT = new GeradorPISNT();
+            iGeradorPISNT.gerarPISNT(infNFe);
 
             try {
                 TNFe tNFe = new TNFe();

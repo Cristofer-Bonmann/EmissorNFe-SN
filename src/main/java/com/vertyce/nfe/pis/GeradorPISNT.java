@@ -32,9 +32,12 @@ public class GeradorPISNT implements IGeradorPISNT {
                     return pis;
 
                 }).forEach(pis -> {
-                    final PIS.PISNT pisnt = new PIS.PISNT();
+                    final String cst = "04";
 
+                    final PIS.PISNT pisnt = new PIS.PISNT();
                     pis.setPISNT(pisnt);
+
+                    pisnt.setCST(cst);
                 });
     }
 }

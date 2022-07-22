@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -22,6 +23,17 @@ public class GeradorPISNTTest {
     }
 
     @Test
+    public void deveGerarPISNTComCST(){
+        final InfNFe infNFe = Util.getInfNFeComImposto();
+        Util.addPIS(infNFe);
+
+        geradorPISNT.gerarPISNT(infNFe);
+
+        final PIS.PISNT pisnt = Util.getPIS(infNFe).getPISNT();
+        assertThat(pisnt.getCST(), is("04"));
+    }
+
+    @Test
     public void deveGerarPISNT(){
         final InfNFe infNFe = Util.getInfNFeComImposto();
         Util.addICMS(infNFe);
@@ -29,7 +41,7 @@ public class GeradorPISNTTest {
 
         geradorPISNT.gerarPISNT(infNFe);
 
-        PIS pis = Util.getPIS(infNFe);
+        final PIS pis = Util.getPIS(infNFe);
         assertThat(pis.getPISNT(), notNullValue());
     }
 }

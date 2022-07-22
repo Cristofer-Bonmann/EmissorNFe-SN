@@ -24,7 +24,7 @@ public class GeradorPISTest {
     }
 
     @Test
-    public void deveGerarPis(){
+    public void deveGerarPIS(){
         final InfNFe infNFe = Util.getInfNFeComImposto();
 
         geradorPIS.gerarPIS(infNFe);
