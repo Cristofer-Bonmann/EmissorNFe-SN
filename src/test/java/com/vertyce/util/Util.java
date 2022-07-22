@@ -19,7 +19,10 @@ import static java.io.File.createTempFile;
 
 public class Util {
 
-    // TODO: 22/07/2022 inserir doc
+    /**
+     * Adiciona um novo objeto PIS na Content PIS, do objeto Imposto, no primeiro item Det do parâmetro InfNFe.
+     * @param infNFe
+     */
     public static void addPIS(InfNFe infNFe) {
         infNFe.getDet().get(0)
                 .getImposto().getContent()
