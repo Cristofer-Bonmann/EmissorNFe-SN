@@ -5,6 +5,7 @@ import com.vertyce.nfe.*;
 import com.vertyce.nfe.icms.GeradorICMS00Test;
 import com.vertyce.nfe.icmssn.GeradorICMSSN101Test;
 import com.vertyce.nfe.pis.GeradorPISNTTest;
+import com.vertyce.nfe.pis.GeradorPISTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -21,6 +22,7 @@ import org.junit.runners.Suite;
         GeradorICMSTest.class,
         GeradorICMS00Test.class,
         GeradorICMSSN101Test.class,
+        GeradorPISTest.class,
         GeradorPISNTTest.class,
 })
 public class SuiteExec {

@@ -9,17 +9,14 @@ import java.util.Objects;
 public class GeradorPISNT implements IGeradorPISNT {
     // TODO: 22/07/2022 inserir doc
     @Override
-    public void gerarPisNT(TNFe.InfNFe infNFe) {
+    public void gerarPISNT(TNFe.InfNFe infNFe) {
         final List<TNFe.InfNFe.Det> dets = infNFe.getDet();
 
         dets.stream()
                 .filter(det -> det.getImposto() != null)
                 .map(det -> det.getImposto())
                 .filter(imposto -> !imposto.getContent().isEmpty())
-
-                .map(imposto -> {
-                    return imposto.getContent();
-                })
+                .map(imposto -> imposto.getContent())
 
                 .map(jaxbElements -> {
                     Object objectPIS = jaxbElements.stream()

@@ -4,5 +4,5 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 
 public interface IGeradorPISNT {
 
-    void gerarPisNT(TNFe.InfNFe infNFe);
+    void gerarPISNT(TNFe.InfNFe infNFe);
 }

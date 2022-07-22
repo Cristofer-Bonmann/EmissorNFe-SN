@@ -8,15 +8,13 @@ import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
-import javax.xml.bind.JAXBElement;
-
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GeradorPISNTTest {
 
     @Spy
-    private GeradorPISNT geradorPisNT;
+    private GeradorPISNT geradorPISNT;
 
     @Before
     public void setUp(){
@@ -29,7 +27,7 @@ public class GeradorPISNTTest {
         Util.addICMS(infNFe);
         Util.addPIS(infNFe);
 
-        geradorPisNT.gerarPisNT(infNFe);
+        geradorPISNT.gerarPISNT(infNFe);
 
         PIS pis = Util.getPIS(infNFe);
         assertThat(pis.getPISNT(), notNullValue());
