@@ -30,21 +30,17 @@ public class GeradorICMSSN101 implements GeradorICMSSN101Presenter {
 
                 }).forEach(icms -> {
                     final String orig = "0";
-                    final String cst = "00";
-                    final String modBC = EModBC.VALOR_OPERACAO.getCodigo();
-                    final String vBC = "100.00";
-                    final String pICMS = "10.0000";
-                    final String vICMS = "90.00";
+                    final String csosn = "101";
+                    final String pCredSN = "10.0000";
+                    final String vCredICMSSN = "10.00";
 
                     final ICMSSN101 icmssn101 = new ICMSSN101();
                     icms.setICMSSN101(icmssn101);
 
-//                    icmssn101.setOrig(orig);
-//                    icmssn101.setCST(cst);
-//                    icmssn101.setModBC(modBC);
-//                    icmssn101.setVBC(vBC);
-//                    icmssn101.setPICMS(pICMS);
-//                    icmssn101.setVICMS(vICMS);
+                    icmssn101.setOrig(orig);
+                    icmssn101.setCSOSN(csosn);
+                    icmssn101.setPCredSN(pCredSN);
+                    icmssn101.setVCredICMSSN(vCredICMSSN);
                 });
     }
 }
