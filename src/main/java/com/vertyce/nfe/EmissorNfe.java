@@ -76,6 +76,9 @@ public class EmissorNfe implements EmitenteView, DestinatarioView {
             final IGeradorCOFINSNT iGeradorCOFINSNT = new GeradorCOFINSNT();
             iGeradorCOFINSNT.gerarCOFINSNT(infNFe);
 
+            final IGeradorInfAdProd iGeradorInfAdProd = new GeradorInfAdProd();
+            iGeradorInfAdProd.gerarInfAdProd(infNFe);
+
             try {
                 TNFe tNFe = new TNFe();
                 tNFe.setInfNFe(infNFe);
