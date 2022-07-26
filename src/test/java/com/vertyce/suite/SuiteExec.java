@@ -28,6 +28,7 @@ import org.junit.runners.Suite;
         GeradorCOFINSTest.class,
         GeradorInfAdProdTest.class,
         GeradorTotalTest.class,
+        GeradorICMSTotTest.class,
 })
 public class SuiteExec {
 }
