@@ -22,6 +22,17 @@ import static java.io.File.createTempFile;
 public class Util {
 
     /**
+     * Adiciona um novo objeto COFINS na Content COFINS, do objeto Imposto, no primeiro item Det do parâmetro InfNFe.
+     * @param infNFe
+     */
+    public static void addCOFINS(InfNFe infNFe) {
+        infNFe.getDet().get(0)
+                .getImposto().getContent()
+                .add(new ObjectFactory()
+                        .createTNFeInfNFeDetImpostoCOFINS(new COFINS()));
+    }
+
+    /**
      * Retorna objeto COFINS do imposto do primeiro Det do objeto InfNFe. <br>
      * isola lista de Det's; <br>
      * filtra pelo objeto imposto diferente de nulo; <br>
