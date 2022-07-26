@@ -7,6 +7,10 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TEnviNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 import com.vertyce.certificado.Certificado;
+import com.vertyce.nfe.cofins.GeradorCOFINS;
+import com.vertyce.nfe.cofins.GeradorCOFINSNT;
+import com.vertyce.nfe.cofins.IGeradorCOFINS;
+import com.vertyce.nfe.cofins.IGeradorCOFINSNT;
 import com.vertyce.nfe.icmssn.GeradorICMSSN101;
 import com.vertyce.nfe.icmssn.IGeradorICMSSN101;
 import com.vertyce.nfe.pis.GeradorPIS;
@@ -65,6 +69,12 @@ public class EmissorNfe implements EmitenteView, DestinatarioView {
 
             final IGeradorPISNT iGeradorPISNT = new GeradorPISNT();
             iGeradorPISNT.gerarPISNT(infNFe);
+
+            final IGeradorCOFINS iGeradorCOFINS = new GeradorCOFINS();
+            iGeradorCOFINS.gerarCOFINS(infNFe);
+
+            final IGeradorCOFINSNT iGeradorCOFINSNT = new GeradorCOFINSNT();
+            iGeradorCOFINSNT.gerarCOFINSNT(infNFe);
 
             try {
                 TNFe tNFe = new TNFe();
