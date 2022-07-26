@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -25,8 +26,23 @@ public class GeradorCOFINSNTTest {
     }
 
     @Test
+    public void deveGerarComCST(){
+        final InfNFe infNFe = Util.getInfNFeComImposto();
+        Util.addICMS(infNFe);
+        Util.addPIS(infNFe);
+        Util.addCOFINS(infNFe);
+
+        geradorCOFINSNT.gerarCOFINSNT(infNFe);
+
+        final COFINSNT cofinsnt = Util.getCOFINS(infNFe).getCOFINSNT();
+        assertThat(cofinsnt.getCST(), is("04"));
+    }
+
+    @Test
     public void deveGerarCOFINSNT(){
         final InfNFe infNFe = Util.getInfNFeComImposto();
+        Util.addICMS(infNFe);
+        Util.addPIS(infNFe);
         Util.addCOFINS(infNFe);
 
         geradorCOFINSNT.gerarCOFINSNT(infNFe);
