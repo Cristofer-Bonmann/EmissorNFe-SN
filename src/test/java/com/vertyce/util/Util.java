@@ -4,6 +4,7 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.ObjectFactory;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det;
+import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.COFINS;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.PIS;
 
@@ -19,6 +20,39 @@ import java.util.List;
 import static java.io.File.createTempFile;
 
 public class Util {
+
+    /**
+     * Retorna objeto COFINS do imposto do primeiro Det do objeto InfNFe. <br>
+     * isola lista de Det's; <br>
+     * filtra pelo objeto imposto diferente de nulo; <br>
+     * retorna esse objeto Imposto; <br>
+     * filtra pela lista de JAXBElement(imposto.Content) que seja diferente de vazia; <br>
+     * retorna lista de elementos do Content; <br>
+     * para cada elemento dessa lista: filtra-se pelos itens do tipo COFINS e retorna o primeiro objeto encontrado ou retorna nulo; <br>
+     * converte o objeto retornado para COFINS ou então retorna-se nulo. <br>
+     *
+     * @param infNFe
+     * @return objeto COFINS.
+     */
+    public static COFINS getCOFINS(InfNFe infNFe){
+        COFINS cofins = null;
+
+        final List<Det> dets = infNFe.getDet();
+        if (dets.size() >= 1) {
+            final Det det = dets.get(0);
+            final Det.Imposto imposto = det.getImposto();
+
+            if (imposto != null) {
+                cofins = det.getImposto().getContent().stream()
+                        .filter(jaxb -> jaxb.getDeclaredType().equals(COFINS.class))
+                        .map(jaxbElement -> jaxbElement.getValue())
+                        .map(objectCofins -> (COFINS) objectCofins)
+                        .findFirst()
+                        .orElse(null);
+            }
+        }
+        return cofins;
+    }
 
     /**
      * Adiciona um novo objeto PIS na Content PIS, do objeto Imposto, no primeiro item Det do parâmetro InfNFe.

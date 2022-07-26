@@ -1,23 +1,22 @@
-package com.vertyce.nfe.pis;
+package com.vertyce.nfe.cofins;
 
 import br.com.swconsultoria.nfe.schema_4.enviNFe.ObjectFactory;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.PIS;
 
 import java.util.List;
 
-public class GeradorPIS implements IGeradorPIS {
-    // TODO: 22/07/2022 inserir doc
+public class GeradorCOFINS implements com.vertyce.nfe.cofins.IGeradorCOFINS{
+    // TODO: 26/07/2022 inserir doc
     @Override
-    public void gerarPIS(TNFe.InfNFe infNFe) {
+    public void gerarCOFINS(TNFe.InfNFe infNFe) {
         final List<TNFe.InfNFe.Det> dets = infNFe.getDet();
 
         dets.stream()
                 .filter(det -> det.getImposto() != null)
                 .map(det -> det.getImposto())
                 .forEach(imposto -> {
-                    PIS pis = new PIS();
-                    imposto.getContent().add(new ObjectFactory().createTNFeInfNFeDetImpostoPIS(pis));
+                    final TNFe.InfNFe.Det.Imposto.COFINS cofins = new TNFe.InfNFe.Det.Imposto.COFINS();
+                    imposto.getContent().add(new ObjectFactory().createTNFeInfNFeDetImpostoCOFINS(cofins));
                 });
     }
 }

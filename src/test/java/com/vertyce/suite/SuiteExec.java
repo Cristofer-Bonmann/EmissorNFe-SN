@@ -2,6 +2,7 @@ package com.vertyce.suite;
 
 import com.vertyce.certificado.CertificadoTest;
 import com.vertyce.nfe.*;
+import com.vertyce.nfe.cofins.GeradorCOFINSTest;
 import com.vertyce.nfe.icms.GeradorICMS00Test;
 import com.vertyce.nfe.icmssn.GeradorICMSSN101Test;
 import com.vertyce.nfe.pis.GeradorPISNTTest;
@@ -24,6 +25,7 @@ import org.junit.runners.Suite;
         GeradorICMSSN101Test.class,
         GeradorPISTest.class,
         GeradorPISNTTest.class,
+        GeradorCOFINSTest.class,
 })
 public class SuiteExec {
 }
