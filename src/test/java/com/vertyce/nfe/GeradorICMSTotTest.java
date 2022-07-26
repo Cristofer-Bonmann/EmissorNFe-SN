@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GeradorICMSTotTest {
@@ -21,6 +22,15 @@ public class GeradorICMSTotTest {
     @Before
     public void setUp(){
         MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    public void naoDeveGerarSemTotal(){
+        final InfNFe infNFe = new InfNFe();
+
+        geradorICMSTot.gerarICMSTot(infNFe);
+
+        assertThat(infNFe.getTotal(), nullValue());
     }
 
     @Test

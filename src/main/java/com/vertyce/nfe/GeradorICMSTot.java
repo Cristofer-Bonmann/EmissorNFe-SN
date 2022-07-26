@@ -8,6 +8,7 @@ public class GeradorICMSTot implements IGeradorICMSTot{
     // TODO: 26/07/2022 inserir doc
     @Override
     public void gerarICMSTot(InfNFe infNFe) {
-        infNFe.getTotal().setICMSTot(new ICMSTot());
+        if (infNFe.getTotal() != null)
+            infNFe.getTotal().setICMSTot(new ICMSTot());
     }
 }
