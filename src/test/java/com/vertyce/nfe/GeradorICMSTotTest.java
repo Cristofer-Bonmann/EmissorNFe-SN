@@ -1,8 +1,12 @@
 package com.vertyce.nfe;
 
+import br.com.swconsultoria.nfe.schema_4.enviNFe.ObjectFactory;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe;
+import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS;
+import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS.ICMSSN101;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Total;
+import com.vertyce.builders.ICMSSN101Builder;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Before;
@@ -10,8 +14,9 @@ import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
+import javax.xml.bind.JAXBElement;
+
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GeradorICMSTotTest {
@@ -22,6 +27,19 @@ public class GeradorICMSTotTest {
     @Before
     public void setUp(){
         MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    public void deveGerarComVBC(){
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
+
+        final Total total = new Total();
+        infNFe.setTotal(total);
+
+        geradorICMSTot.gerarICMSTot(infNFe);
+
+        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        assertThat(icmsTot.getVBC(), is("0.00"));
     }
 
     @Test
