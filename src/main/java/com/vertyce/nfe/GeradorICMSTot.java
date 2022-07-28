@@ -4,8 +4,12 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS;
+import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Prod;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Total.ICMSTot;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
@@ -13,34 +17,55 @@ import java.util.Objects;
 public class GeradorICMSTot implements IGeradorICMSTot{
 
     // TODO: 28/07/2022 inserir doc
-    protected String getVProd(List<Det> dets){
+    private Object getValorFieldPorNome(Prod prod, String nomeField){
+        Object objectValue;
+
+        final String nome = "get" + nomeField;
+        try {
+            final Method declaredMethod = Prod.class.getDeclaredMethod(nome);
+            objectValue = declaredMethod.invoke(prod);
+
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+
+        return objectValue;
+    }
+
+    protected String getTotalPorCampo(List<Det> dets, String nomeCampo){
         final BigDecimal bgZero = new BigDecimal("0.00");
-        BigDecimal totalVProd;
-        String strTotalVProd = "0.00";
+        BigDecimal totalCampo;
+        String strTotalCampo = "0.00";
 
         if (!dets.isEmpty()) {
-            totalVProd = dets.stream()
+            totalCampo = dets.stream()
                     .filter(det -> det.getProd() != null)
-                    .map(det -> det.getProd()).map(Det.Prod::getVProd)
-                    .map(vProd -> {
-                        BigDecimal bgVProd = bgZero;
-                        if (vProd != null) {
+                    .map(det -> det.getProd())
+
+                    .map(prod -> {
+                        BigDecimal bgValorCampo = bgZero;
+                        final Object valorFieldPorNome = getValorFieldPorNome(prod, nomeCampo);
+                        if (valorFieldPorNome != null) {
                             try {
-                                bgVProd = new BigDecimal(vProd);
-                            } catch (NumberFormatException nfe){
+                                bgValorCampo = new BigDecimal(String.valueOf(valorFieldPorNome));
+                            } catch(NumberFormatException nfe){
                                 System.err.println(nfe.getMessage());
                             }
                         }
+                        return bgValorCampo;
 
-                        return bgVProd;
                     })
                     .reduce(BigDecimal::add)
                     .orElse(bgZero);
 
-            strTotalVProd = String.valueOf(totalVProd);
+            strTotalCampo = String.valueOf(totalCampo);
         }
 
-        return strTotalVProd;
+        return strTotalCampo;
     }
 
     // TODO: 26/07/2022 inserir doc
@@ -57,7 +82,8 @@ public class GeradorICMSTot implements IGeradorICMSTot{
             final String vICMSDeson = "0.00";
             final String vBCST = "0.00";
             final String vST = "0.00";
-            final String vProd = getVProd(infNFe.getDet());
+            final String vProd = getTotalPorCampo(infNFe.getDet(), "VProd");
+            final String vFrete = getTotalPorCampo(infNFe.getDet(), "VFrete");
 
             icmsTot.setVBC(vBC);
             icmsTot.setVICMS(vICMS);
@@ -65,6 +91,7 @@ public class GeradorICMSTot implements IGeradorICMSTot{
             icmsTot.setVBCST(vBCST);
             icmsTot.setVST(vST);
             icmsTot.setVProd(vProd);
+            icmsTot.setVFrete(vFrete);
         }
     }
 }

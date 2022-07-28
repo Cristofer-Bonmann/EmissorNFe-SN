@@ -39,6 +39,7 @@ public class ICMSSN101Builder {
         infNFe.getDet().add(det);
 
         prod.setVProd("100.00");
+        prod.setVFrete("5.00");
 
         icmssn101Builder.infNFe = infNFe;
 
@@ -56,8 +57,13 @@ public class ICMSSN101Builder {
         return this;
     }
 
-    public ICMSSN101Builder setVProd(Object value) {
-        this.infNFe.getDet().stream().forEach(det -> det.getProd().setVProd(String.valueOf(value)));
+    public ICMSSN101Builder setVProd(String vProd) {
+        this.infNFe.getDet().stream().forEach(det -> det.getProd().setVProd(vProd));
+        return this;
+    }
+
+    public ICMSSN101Builder setVProdNull() {
+        this.infNFe.getDet().stream().forEach(det -> det.getProd().setVProd(null));
         return this;
     }
 

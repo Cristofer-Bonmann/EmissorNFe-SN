@@ -1,20 +1,12 @@
 package com.vertyce.nfe;
 
-import br.com.swconsultoria.nfe.schema_4.enviNFe.ObjectFactory;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS.ICMSSN101;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Total;
 import com.vertyce.builders.ICMSSN101Builder;
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
-
-import javax.xml.bind.JAXBElement;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -27,6 +19,19 @@ public class GeradorICMSTotTest {
     @Before
     public void setUp(){
         MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    public void deveGerarComVFrete(){
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
+
+        final Total total = new Total();
+        infNFe.setTotal(total);
+
+        geradorICMSTot.gerarICMSTot(infNFe);
+
+        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        assertThat(icmsTot.getVFrete(), is("5.00"));
     }
 
     @Test
@@ -141,7 +146,7 @@ public class GeradorICMSTotTest {
 
     @Test
     public void deveRetornarTotalVProdZeradoComVProdNulo(){
-        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().setVProd(null).get();
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().setVProdNull().get();
 
         final Total total = new Total();
         infNFe.setTotal(total);
@@ -176,5 +181,14 @@ public class GeradorICMSTotTest {
 
         final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
         assertThat(icmsTot.getVProd(), is("0.00"));
+    }
+
+    @Test
+    public void deveRetornarValorVProd(){
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
+
+        final String vProd = geradorICMSTot.getTotalPorCampo(infNFe.getDet(), "VProd");
+
+        assertThat(vProd, is("100.00"));
     }
 }
