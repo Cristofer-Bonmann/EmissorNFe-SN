@@ -128,8 +128,7 @@ public class GeradorICMSTotTest {
 
     @Test
     public void deveRetornarTotalVProdZeradoComVProdFormatoInvalido(){
-        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
-        infNFe.getDet().get(0).getProd().setVProd("abcd");
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().setVProd("abcd").get();
 
         final Total total = new Total();
         infNFe.setTotal(total);
@@ -142,8 +141,7 @@ public class GeradorICMSTotTest {
 
     @Test
     public void deveRetornarTotalVProdZeradoComVProdNulo(){
-        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
-        infNFe.getDet().get(0).getProd().setVProd(null);
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().setVProd(null).get();
 
         final Total total = new Total();
         infNFe.setTotal(total);
@@ -156,8 +154,7 @@ public class GeradorICMSTotTest {
 
     @Test
     public void deveRetornarVProdZeradoSemProds(){
-        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
-        infNFe.getDet().get(0).setProd(null);
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().semProd().get();
 
         final Total total = new Total();
         infNFe.setTotal(total);
@@ -170,8 +167,7 @@ public class GeradorICMSTotTest {
 
     @Test
     public void deveRetornarVProdZeradoSemDets(){
-        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
-        infNFe.getDet().remove(0);
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().semDet().get();
 
         final Total total = new Total();
         infNFe.setTotal(total);

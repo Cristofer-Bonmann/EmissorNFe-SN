@@ -9,6 +9,7 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS.IC
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Prod;
 
 import javax.xml.bind.JAXBElement;
+import java.util.List;
 
 /**
  * Builder do objeto InfNFe com tributação ICMSSN 101 com apenas um item como produto.
@@ -42,6 +43,22 @@ public class ICMSSN101Builder {
         icmssn101Builder.infNFe = infNFe;
 
         return icmssn101Builder;
+    }
+
+    public ICMSSN101Builder semDet(){
+        final List<Det> det = this.infNFe.getDet();
+        this.infNFe.getDet().removeAll(det);
+        return this;
+    }
+
+    public ICMSSN101Builder semProd() {
+        this.infNFe.getDet().stream().forEach(det -> det.setProd(null));
+        return this;
+    }
+
+    public ICMSSN101Builder setVProd(Object value) {
+        this.infNFe.getDet().stream().forEach(det -> det.getProd().setVProd(String.valueOf(value)));
+        return this;
     }
 
     public InfNFe get(){
