@@ -127,7 +127,21 @@ public class GeradorICMSTotTest {
     }
 
     @Test
-    public void deveRetornarVProdZeradoComValorInvalido(){
+    public void deveRetornarTotalVProdZeradoComVProdFormatoInvalido(){
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
+        infNFe.getDet().get(0).getProd().setVProd("abcd");
+
+        final Total total = new Total();
+        infNFe.setTotal(total);
+
+        geradorICMSTot.gerarICMSTot(infNFe);
+
+        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        assertThat(icmsTot.getVProd(), is("0.00"));
+    }
+
+    @Test
+    public void deveRetornarTotalVProdZeradoComVProdNulo(){
         final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
         infNFe.getDet().get(0).getProd().setVProd(null);
 

@@ -25,7 +25,11 @@ public class GeradorICMSTot implements IGeradorICMSTot{
                     .map(vProd -> {
                         BigDecimal bgVProd = bgZero;
                         if (vProd != null) {
-                            bgVProd = new BigDecimal(vProd);
+                            try {
+                                bgVProd = new BigDecimal(vProd);
+                            } catch (NumberFormatException nfe){
+                                System.err.println(nfe.getMessage());
+                            }
                         }
 
                         return bgVProd;
