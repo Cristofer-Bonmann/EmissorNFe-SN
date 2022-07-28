@@ -14,14 +14,16 @@ public class GeradorICMSTot implements IGeradorICMSTot{
 
     // TODO: 28/07/2022 inserir doc
     protected String getVProd(List<Det> dets){
-        BigDecimal totalVProd = null;
+        BigDecimal totalVProd;
+        String strTotalVProd = "0.00";
 
         if (!dets.isEmpty()) {
             totalVProd = dets.stream().map(det -> det.getProd())
                     .map(prod -> new BigDecimal(prod.getVProd())).reduce(BigDecimal::add).get();
+            strTotalVProd = String.valueOf(totalVProd);
         }
 
-        return String.valueOf(totalVProd);
+        return strTotalVProd;
     }
 
     // TODO: 26/07/2022 inserir doc
