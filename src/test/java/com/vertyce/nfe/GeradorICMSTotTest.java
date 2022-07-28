@@ -30,6 +30,71 @@ public class GeradorICMSTotTest {
     }
 
     @Test
+    public void deveGerarComVProd(){
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
+
+        final Total total = new Total();
+        infNFe.setTotal(total);
+
+        geradorICMSTot.gerarICMSTot(infNFe);
+
+        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        assertThat(icmsTot.getVProd(), is("100.00"));
+    }
+
+    @Test
+    public void deveGerarComVST(){
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
+
+        final Total total = new Total();
+        infNFe.setTotal(total);
+
+        geradorICMSTot.gerarICMSTot(infNFe);
+
+        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        assertThat(icmsTot.getVST(), is("0.00"));
+    }
+
+    @Test
+    public void deveGerarComVBCST(){
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
+
+        final Total total = new Total();
+        infNFe.setTotal(total);
+
+        geradorICMSTot.gerarICMSTot(infNFe);
+
+        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        assertThat(icmsTot.getVBCST(), is("0.00"));
+    }
+
+    @Test
+    public void deveGerarComVICMSDeson(){
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
+
+        final Total total = new Total();
+        infNFe.setTotal(total);
+
+        geradorICMSTot.gerarICMSTot(infNFe);
+
+        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        assertThat(icmsTot.getVICMSDeson(), is("0.00"));
+    }
+
+    @Test
+    public void deveGerarComVICMS(){
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
+
+        final Total total = new Total();
+        infNFe.setTotal(total);
+
+        geradorICMSTot.gerarICMSTot(infNFe);
+
+        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        assertThat(icmsTot.getVICMS(), is("0.00"));
+    }
+
+    @Test
     public void deveGerarComVBC(){
         final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
 

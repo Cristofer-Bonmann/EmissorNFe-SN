@@ -6,6 +6,7 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS.ICMSSN101;
+import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Prod;
 
 import javax.xml.bind.JAXBElement;
 
@@ -25,14 +26,18 @@ public class ICMSSN101Builder {
         final ObjectFactory of = new ObjectFactory();
         final InfNFe infNFe = of.createTNFeInfNFe();
         final Det det = of.createTNFeInfNFeDet();
+        final Prod prod = of.createTNFeInfNFeDetProd();
         final Imposto imposto = of.createTNFeInfNFeDetImposto();
         final ICMSSN101 icmssn101 = of.createTNFeInfNFeDetImpostoICMSICMSSN101();
         final JAXBElement<ICMS> jaxbElementICMS = of.createTNFeInfNFeDetImpostoICMS(icms);
 
+        det.setProd(prod);
         icms.setICMSSN101(icmssn101);
         imposto.getContent().add(jaxbElementICMS);
         det.setImposto(imposto);
         infNFe.getDet().add(det);
+
+        prod.setVProd("100.00");
 
         icmssn101Builder.infNFe = infNFe;
 
