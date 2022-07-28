@@ -127,6 +127,20 @@ public class GeradorICMSTotTest {
     }
 
     @Test
+    public void deveRetornarVProdZeradoSemProds(){
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
+        infNFe.getDet().get(0).setProd(null);
+
+        final Total total = new Total();
+        infNFe.setTotal(total);
+
+        geradorICMSTot.gerarICMSTot(infNFe);
+
+        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        assertThat(icmsTot.getVProd(), is("0.00"));
+    }
+
+    @Test
     public void deveRetornarVProdZeradoSemDets(){
         final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
         infNFe.getDet().remove(0);
