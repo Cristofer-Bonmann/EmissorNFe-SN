@@ -4,15 +4,22 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS;
 import com.vertyce.enums.EModBC;
 
+import javax.xml.bind.JAXBElement;
 import java.util.List;
+import java.util.Objects;
 
 public class GeradorICMS00 implements IGeradorICMS00 {
     /**
-     * Gera os informações para a tributação do ICMS 00. <br>
-     * O objeto Imposto deve ter pelo menos um item na sua lista de Content(lista JAXBElement); <br>
-     * O valor do primeiro item do Content (lista JAXBElement) do Imposto deve ser diferente de null e deve ser do tipo
-     * TNFe.InfNFe.Det.Imposto.ICMS<br>
-     * @param infNFe
+     * Gera as informações para a tributação do ICMS 00. <br>
+     *
+     * 1. o objeto Imposto deve ter pelo menos um 'item' na sua lista de Content(lista JAXBElement); <br>
+     * 2. percorre os itens retornados pelo 'getContent' (Lista de JAXBElement) e retorna o objeto do tipo ICMS, se
+     * nenhum 'item' desse tipo for encontrado, retorna-se nulo;  <br>
+     * 3. Converte o objeto do tipo ICMS para a classe ICMS;  <br>
+     * 4. cria uma instância do tipo ICMS00, atribuirá valores em suas propriedades;  <br>
+     * 5. atribuí o objeto ICMS00 no objeto ICMS.  <br>
+     *
+     * @param infNFe objeto InfNFe.
      */
     @Override
     public void geraICMS00(TNFe.InfNFe infNFe) {
@@ -22,15 +29,19 @@ public class GeradorICMS00 implements IGeradorICMS00 {
                 .filter(det -> det.getImposto() != null)
                 .map(det -> det.getImposto())
                 .filter(imposto -> imposto.getContent().size() >= 1)
-                .filter(imposto -> imposto.getContent().get(0).getValue() != null)
-                .map(imposto -> {
-                    Object valueIcms = imposto.getContent().get(0).getValue();
-                    return valueIcms;
 
+                .map(imposto -> {
+                    List<JAXBElement<?>> jaxbElements = imposto.getContent();
+                    final Object objectICMS = jaxbElements.stream()
+                            .filter(jaxb -> jaxb.getDeclaredType().equals(ICMS.class))
+                            .map(jaxb -> jaxb.getValue())
+                            .findFirst().orElse(null);
+                    return objectICMS;
                 })
-                .filter(valueIcms -> valueIcms instanceof ICMS)
-                .map(valueIcms -> {
-                    ICMS icms = (ICMS) valueIcms;
+
+                .filter(Objects::nonNull)
+                .map(valueICMS -> {
+                    final ICMS icms = (ICMS) valueICMS;
                     return icms;
 
                 }).forEach(icms -> {
