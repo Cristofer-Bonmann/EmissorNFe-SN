@@ -1,7 +1,9 @@
 package com.vertyce.nfe.pis;
 
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
+import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.PIS;
+import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.PIS.PISNT;
 
 import java.util.List;
 import java.util.Objects;
@@ -10,7 +12,7 @@ public class GeradorPISNT implements IGeradorPISNT {
     // TODO: 29/07/2022 inserir doc
     @Override
     public void gerarPISNT(TNFe.InfNFe infNFe) {
-        final List<TNFe.InfNFe.Det> dets = infNFe.getDet();
+        final List<Det> dets = infNFe.getDet();
 
         dets.stream()
                 .filter(det -> det.getImposto() != null)
@@ -34,7 +36,7 @@ public class GeradorPISNT implements IGeradorPISNT {
                 }).forEach(pis -> {
                     final String cst = "04";
 
-                    final PIS.PISNT pisnt = new PIS.PISNT();
+                    final PISNT pisnt = new PISNT();
                     pis.setPISNT(pisnt);
 
                     pisnt.setCST(cst);
