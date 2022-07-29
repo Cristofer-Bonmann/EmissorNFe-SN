@@ -3,6 +3,7 @@ package com.vertyce.nfe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Total;
 import com.vertyce.builders.ICMSSN101Builder;
+import com.vertyce.enums.EICMSTotMethod;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
@@ -181,6 +182,15 @@ public class GeradorICMSTotTest {
 
         final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
         assertThat(icmsTot.getVProd(), is("0.00"));
+    }
+
+    @Test
+    public void deveRetornarValorZeradoComMethodNaoEncontrado(){
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
+
+        String totalPorCampo = geradorICMSTot.getTotalPorCampo(infNFe.getDet(), "");
+
+        assertThat(totalPorCampo, nullValue());
     }
 
     @Test

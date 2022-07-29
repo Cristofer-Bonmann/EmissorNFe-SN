@@ -6,6 +6,7 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Prod;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Total.ICMSTot;
+import com.vertyce.enums.EICMSTotMethod;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -17,52 +18,70 @@ import java.util.Objects;
 public class GeradorICMSTot implements IGeradorICMSTot{
 
     // TODO: 28/07/2022 inserir doc
-    private Object getValorFieldPorNome(Prod prod, String nomeField){
+    private Object getValorFieldPorNome(Prod prod, String nomeField) throws NoSuchMethodException,
+            InvocationTargetException, IllegalAccessException {
+
         Object objectValue;
 
         final String nome = "get" + nomeField;
-        try {
-            final Method declaredMethod = Prod.class.getDeclaredMethod(nome);
-            objectValue = declaredMethod.invoke(prod);
-
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-
+        final Method declaredMethod = Prod.class.getDeclaredMethod(nome);
+        objectValue = declaredMethod.invoke(prod);
         return objectValue;
     }
 
+    // TODO: 29/07/2022 inserir doc
+    private boolean methodExiste(String nomeMethod){
+        boolean existeMethod = true;
+        final String nome = "get" + nomeMethod;
+        try {
+            final Method declaredMethod = Prod.class.getDeclaredMethod(nome);
+        } catch (NoSuchMethodException e) {
+            existeMethod = false;
+        }
+
+        return existeMethod;
+    }
+
     protected String getTotalPorCampo(List<Det> dets, String nomeCampo){
+
         final BigDecimal bgZero = new BigDecimal("0.00");
         BigDecimal totalCampo;
         String strTotalCampo = "0.00";
 
-        if (!dets.isEmpty()) {
-            totalCampo = dets.stream()
-                    .filter(det -> det.getProd() != null)
-                    .map(det -> det.getProd())
+        boolean methodExiste = methodExiste(nomeCampo);
 
-                    .map(prod -> {
-                        BigDecimal bgValorCampo = bgZero;
-                        final Object valorFieldPorNome = getValorFieldPorNome(prod, nomeCampo);
-                        if (valorFieldPorNome != null) {
+        if (methodExiste) {
+            if (!dets.isEmpty()) {
+                totalCampo = dets.stream()
+                        .filter(det -> det.getProd() != null)
+                        .map(det -> det.getProd())
+                        .map(prod -> {
+                            Object valorFieldPorNome;
+                            BigDecimal bgValorCampo = bgZero;
+
                             try {
-                                bgValorCampo = new BigDecimal(String.valueOf(valorFieldPorNome));
-                            } catch(NumberFormatException nfe){
-                                System.err.println(nfe.getMessage());
+                                valorFieldPorNome = getValorFieldPorNome(prod, nomeCampo);
+                            } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+                                valorFieldPorNome = null;
                             }
-                        }
-                        return bgValorCampo;
 
-                    })
-                    .reduce(BigDecimal::add)
-                    .orElse(bgZero);
+                            if (valorFieldPorNome != null) {
+                                try {
+                                    bgValorCampo = new BigDecimal(String.valueOf(valorFieldPorNome));
+                                } catch (NumberFormatException nfe) {
+                                    System.err.println(nfe.getMessage());
+                                }
+                            }
+                            return bgValorCampo;
 
-            strTotalCampo = String.valueOf(totalCampo);
+                        })
+                        .reduce(BigDecimal::add)
+                        .orElse(bgZero);
+
+                strTotalCampo = String.valueOf(totalCampo);
+            }
+        } else {
+            strTotalCampo = null;
         }
 
         return strTotalCampo;
@@ -82,8 +101,8 @@ public class GeradorICMSTot implements IGeradorICMSTot{
             final String vICMSDeson = "0.00";
             final String vBCST = "0.00";
             final String vST = "0.00";
-            final String vProd = getTotalPorCampo(infNFe.getDet(), "VProd");
-            final String vFrete = getTotalPorCampo(infNFe.getDet(), "VFrete");
+            final String vProd = getTotalPorCampo(infNFe.getDet(), EICMSTotMethod.VPROD.getNomeMethod());
+            final String vFrete = getTotalPorCampo(infNFe.getDet(), EICMSTotMethod.VFRETE.getNomeMethod());
 
             icmsTot.setVBC(vBC);
             icmsTot.setVICMS(vICMS);
