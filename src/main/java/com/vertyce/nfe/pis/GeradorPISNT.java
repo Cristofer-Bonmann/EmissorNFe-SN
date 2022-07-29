@@ -16,14 +16,7 @@ public class GeradorPISNT implements IGeradorPISNT {
         final List<Det> dets = infNFe.getDet();
 
         DetUtil.getStreamDetImpostoContent(dets.stream())
-                .map(jaxbElements -> {
-                    Object objectPIS = jaxbElements.stream()
-                            .filter(jaxb -> jaxb.getDeclaredType().equals(PIS.class))
-                            .map(jaxb -> jaxb.getValue())
-                            .findFirst().orElse(null);
-                    return objectPIS;
-                })
-
+                .map(jaxbElements -> DetUtil.getValueDoJAXBElement(jaxbElements, PIS.class))
                 .filter(Objects::nonNull)
                 .map(valuePis -> {
                     final PIS pis = (PIS) valuePis;

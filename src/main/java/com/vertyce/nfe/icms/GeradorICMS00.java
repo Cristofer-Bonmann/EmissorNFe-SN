@@ -31,10 +31,7 @@ public class GeradorICMS00 implements IGeradorICMS00 {
                 .map(det -> det.getImposto())
                 .filter(imposto -> imposto.getContent().size() >= 1)
 
-                .map(imposto -> {
-                    return DetUtil.getValueDoJAXBElement(imposto.getContent(), ICMS.class);
-                })
-
+                .map(imposto -> DetUtil.getValueDoJAXBElement(imposto.getContent(), ICMS.class))
                 .filter(Objects::nonNull)
                 .map(valueICMS -> {
                     final ICMS icms = (ICMS) valueICMS;

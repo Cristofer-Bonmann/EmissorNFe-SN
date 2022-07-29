@@ -15,14 +15,7 @@ public class GeradorCOFINSNT implements IGeradorCOFINSNT {
         final List<TNFe.InfNFe.Det> dets = infNFe.getDet();
 
         DetUtil.getStreamDetImpostoContent(dets.stream())
-                .map(jaxbElements -> {
-                    Object objectCofins = jaxbElements.stream()
-                            .filter(jaxb -> jaxb.getDeclaredType().equals(COFINS.class))
-                            .map(jaxb -> jaxb.getValue())
-                            .findFirst().orElse(null);
-                    return objectCofins;
-                })
-
+                .map(jaxbElements -> DetUtil.getValueDoJAXBElement(jaxbElements, COFINS.class))
                 .filter(Objects::nonNull)
                 .map(valueCofins -> {
                     final COFINS cofins = (COFINS) valueCofins;

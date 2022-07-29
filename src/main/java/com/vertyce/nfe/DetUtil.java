@@ -11,7 +11,8 @@ import java.util.stream.Stream;
 public class DetUtil {
 
     /**
-     * Percorre uma lista do tipo JAXBElement filtrando por um tipo específico de classe e retorna sua propriedade 'value'.
+     * Percorre uma lista do tipo JAXBElement filtrando por um tipo específico de classe e retorna sua propriedade 'value'. <br>
+     * Se nenhum 'item' do tipo da classe especificada for encontrada, o retorno será nulo.
      * @param list lista JAXBElement.
      * @param aClass tipo da classe para ser filtrada.
      * @return objeto 'value' de um 'JAXBElement'.
