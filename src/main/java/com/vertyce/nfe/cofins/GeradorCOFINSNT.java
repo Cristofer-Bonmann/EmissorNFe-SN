@@ -2,22 +2,19 @@ package com.vertyce.nfe.cofins;
 
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.COFINS;
+import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.COFINS.COFINSNT;
+import com.vertyce.nfe.DetUtil;
 
 import java.util.List;
 import java.util.Objects;
 
-public class GeradorCOFINSNT implements IGeradorCOFINSNT{
+public class GeradorCOFINSNT implements IGeradorCOFINSNT {
     // TODO: 26/07/2022 inserir doc
     @Override
     public void gerarCOFINSNT(TNFe.InfNFe infNFe) {
         final List<TNFe.InfNFe.Det> dets = infNFe.getDet();
 
-        dets.stream()
-                .filter(det -> det.getImposto() != null)
-                .map(det -> det.getImposto())
-                .filter(imposto -> !imposto.getContent().isEmpty())
-                .map(imposto -> imposto.getContent())
-
+        DetUtil.getStreamDetImpostoContent(dets.stream())
                 .map(jaxbElements -> {
                     Object objectCofins = jaxbElements.stream()
                             .filter(jaxb -> jaxb.getDeclaredType().equals(COFINS.class))
@@ -34,7 +31,7 @@ public class GeradorCOFINSNT implements IGeradorCOFINSNT{
                 }).forEach(cofins -> {
                     final String cst = "04";
 
-                    final TNFe.InfNFe.Det.Imposto.COFINS.COFINSNT cofinsnt = new TNFe.InfNFe.Det.Imposto.COFINS.COFINSNT();
+                    final COFINSNT cofinsnt = new COFINSNT();
                     cofins.setCOFINSNT(cofinsnt);
 
                     cofinsnt.setCST(cst);

@@ -4,6 +4,7 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.PIS;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.PIS.PISNT;
+import com.vertyce.nfe.DetUtil;
 
 import java.util.List;
 import java.util.Objects;
@@ -14,12 +15,7 @@ public class GeradorPISNT implements IGeradorPISNT {
     public void gerarPISNT(TNFe.InfNFe infNFe) {
         final List<Det> dets = infNFe.getDet();
 
-        dets.stream()
-                .filter(det -> det.getImposto() != null)
-                .map(det -> det.getImposto())
-                .filter(imposto -> !imposto.getContent().isEmpty())
-                .map(imposto -> imposto.getContent())
-
+        DetUtil.getStreamDetImpostoContent(dets.stream())
                 .map(jaxbElements -> {
                     Object objectPIS = jaxbElements.stream()
                             .filter(jaxb -> jaxb.getDeclaredType().equals(PIS.class))

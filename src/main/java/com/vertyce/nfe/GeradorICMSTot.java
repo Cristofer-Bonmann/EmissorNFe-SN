@@ -2,6 +2,7 @@ package com.vertyce.nfe;
 
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det;
+import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.PIS;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Prod;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Total.ICMSTot;
 import com.vertyce.enums.EICMSTotMethod;
@@ -12,7 +13,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
-public class GeradorICMSTot implements IGeradorICMSTot{
+public class GeradorICMSTot implements IGeradorICMSTot {
 
     /**
      * Invoca um método pelo nome e retorna o resultado dessa invocação. <br>
@@ -20,10 +21,9 @@ public class GeradorICMSTot implements IGeradorICMSTot{
      * - invocará o método;
      * - retornará o resultado como o tipo Object.
      *
-     * @param prod instância do método que será invocado.
+     * @param prod      instância do método que será invocado.
      * @param nomeField nome do método da classe Prod.
      * @return retorno da invocação do método.
-     *
      * @throws NoSuchMethodException
      * @throws InvocationTargetException
      * @throws IllegalAccessException
@@ -41,10 +41,11 @@ public class GeradorICMSTot implements IGeradorICMSTot{
 
     /**
      * Verifica se existe um método na classe Prod com o nome passado por parâmetro.
+     *
      * @param nomeMethod nome do método.
      * @return true caso afirmativo, false caso contrário.
      */
-    private boolean methodExiste(String nomeMethod){
+    private boolean methodExiste(String nomeMethod) {
         boolean existeMethod = true;
         final String nome = "get" + nomeMethod;
         try {
@@ -63,12 +64,13 @@ public class GeradorICMSTot implements IGeradorICMSTot{
      * - se o método do Field não existir será retornado nulo;
      * - se o objeto Prod do Det for igual a nulo, será retornado '0.00';
      * - se um dos Exception esperados forem disparados, será retornado '0.00';
-     * @param dets lista de Det.
+     *
+     * @param dets       lista de Det.
      * @param nomeMethod nome do método que será invocado para retornar o valor do Field de Prod.
      * @return valor total do campo.
      * @see Prod
      */
-    protected String getTotalPorCampo(List<Det> dets, String nomeMethod){
+    protected String getTotalPorCampo(List<Det> dets, String nomeMethod) {
 
         final BigDecimal bgZero = new BigDecimal("0.00");
         BigDecimal total;
@@ -111,16 +113,11 @@ public class GeradorICMSTot implements IGeradorICMSTot{
     }
 
     // TODO: 29/07/2022 inserir doc
-    protected String getTotalVPIS(List<Det> dets){
-        final BigDecimal totalVPis = dets.stream()
-                .filter(det -> det.getImposto() != null)
-                .map(det -> det.getImposto())
-                .filter(imposto -> !imposto.getContent().isEmpty())
-                .map(imposto -> imposto.getContent())
-
+    protected String getTotalVPIS(List<Det> dets) {
+        final BigDecimal totalVPis = DetUtil.getStreamDetImpostoContent(dets.stream())
                 .map(jaxbElements -> {
                     Object objectPIS = jaxbElements.stream()
-                            .filter(jaxb -> jaxb.getDeclaredType().equals(Det.Imposto.PIS.class))
+                            .filter(jaxb -> jaxb.getDeclaredType().equals(PIS.class))
                             .map(jaxb -> jaxb.getValue())
                             .findFirst().orElse(null);
                     return objectPIS;
@@ -128,7 +125,7 @@ public class GeradorICMSTot implements IGeradorICMSTot{
 
                 .filter(Objects::nonNull)
                 .map(valuePis -> {
-                    final Det.Imposto.PIS pis = (Det.Imposto.PIS) valuePis;
+                    final PIS pis = (PIS) valuePis;
                     return pis;
 
                 })
@@ -142,12 +139,13 @@ public class GeradorICMSTot implements IGeradorICMSTot{
 
     /**
      * Cria e atribuí na InfNFe um objeto ICMSTot e atribuí os seus campos com os seus respectivos totais.
+     *
      * @param infNFe objeto InfNFe.
      */
     @Override
     public void gerarICMSTot(InfNFe infNFe) {
 
-        if (infNFe.getTotal() != null){
+        if (infNFe.getTotal() != null) {
 
             final ICMSTot icmsTot = new ICMSTot();
             infNFe.getTotal().setICMSTot(icmsTot);
