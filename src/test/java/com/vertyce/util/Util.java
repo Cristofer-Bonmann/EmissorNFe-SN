@@ -22,14 +22,15 @@ import static java.io.File.createTempFile;
 public class Util {
 
     /**
-     * Adiciona um novo objeto COFINS na Content COFINS, do objeto Imposto, no primeiro item Det do parâmetro InfNFe.
-     * @param infNFe
+     * Adiciona um novo object COFINS em InfNFe -> Det -> Imposto -> List Content. O novo objeto será criado e adicionado
+     * em todos os itens do Det.
+     * @param infNFe objeto InfNFe.
      */
     public static void addCOFINS(InfNFe infNFe) {
-        infNFe.getDet().get(0)
-                .getImposto().getContent()
-                .add(new ObjectFactory()
-                        .createTNFeInfNFeDetImpostoCOFINS(new COFINS()));
+        infNFe.getDet().stream()
+                .map(det -> det.getImposto())
+                .forEach(imposto -> imposto.getContent()
+                        .add(new ObjectFactory().createTNFeInfNFeDetImpostoCOFINS(new COFINS())));
     }
 
     /**
