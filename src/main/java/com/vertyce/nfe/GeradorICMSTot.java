@@ -1,24 +1,20 @@
 package com.vertyce.nfe;
 
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Prod;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Total.ICMSTot;
 import com.vertyce.enums.EICMSTotMethod;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Objects;
 
 public class GeradorICMSTot implements IGeradorICMSTot{
 
     // TODO: 28/07/2022 inserir doc
-    private Object getValorFieldPorNome(Prod prod, String nomeField) throws NoSuchMethodException,
+    private Object getValorMethdodInvoke(Prod prod, String nomeField) throws NoSuchMethodException,
             InvocationTargetException, IllegalAccessException {
 
         Object objectValue;
@@ -42,49 +38,46 @@ public class GeradorICMSTot implements IGeradorICMSTot{
         return existeMethod;
     }
 
-    protected String getTotalPorCampo(List<Det> dets, String nomeCampo){
+    protected String getTotalPorCampo(List<Det> dets, String nomeMethod){
 
         final BigDecimal bgZero = new BigDecimal("0.00");
-        BigDecimal totalCampo;
-        String strTotalCampo = "0.00";
+        BigDecimal total;
+        String strTotal = "0.00";
 
-        boolean methodExiste = methodExiste(nomeCampo);
+        boolean methodExiste = methodExiste(nomeMethod);
 
         if (methodExiste) {
             if (!dets.isEmpty()) {
-                totalCampo = dets.stream()
+                total = dets.stream()
                         .filter(det -> det.getProd() != null)
                         .map(det -> det.getProd())
                         .map(prod -> {
-                            Object valorFieldPorNome;
-                            BigDecimal bgValorCampo = bgZero;
+                            Object valor;
+                            BigDecimal bgValor = bgZero;
 
                             try {
-                                valorFieldPorNome = getValorFieldPorNome(prod, nomeCampo);
+                                valor = getValorMethdodInvoke(prod, nomeMethod);
+                                bgValor = new BigDecimal(String.valueOf(valor));
+
+                            } catch (NumberFormatException nfe) {
+                                System.err.println(nfe.getMessage());
                             } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-                                valorFieldPorNome = null;
+                                System.err.println(e.getMessage());
                             }
 
-                            if (valorFieldPorNome != null) {
-                                try {
-                                    bgValorCampo = new BigDecimal(String.valueOf(valorFieldPorNome));
-                                } catch (NumberFormatException nfe) {
-                                    System.err.println(nfe.getMessage());
-                                }
-                            }
-                            return bgValorCampo;
+                            return bgValor;
 
                         })
                         .reduce(BigDecimal::add)
                         .orElse(bgZero);
 
-                strTotalCampo = String.valueOf(totalCampo);
+                strTotal = String.valueOf(total);
             }
         } else {
-            strTotalCampo = null;
+            strTotal = null;
         }
 
-        return strTotalCampo;
+        return strTotal;
     }
 
     // TODO: 26/07/2022 inserir doc

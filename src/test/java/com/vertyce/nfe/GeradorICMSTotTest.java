@@ -185,7 +185,7 @@ public class GeradorICMSTotTest {
     }
 
     @Test
-    public void deveRetornarValorZeradoComMethodNaoEncontrado(){
+    public void deveRetornarValorTotalNuloComMethodNaoEncontrado(){
         final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
 
         String totalPorCampo = geradorICMSTot.getTotalPorCampo(infNFe.getDet(), "");
