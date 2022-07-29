@@ -2,7 +2,9 @@ package com.vertyce.enums;
 
 public enum EICMSTotMethod {
     VPROD("VProd"),
-    VFRETE("VFrete");
+    VFRETE("VFrete"),
+    VSEG("VSeg"),
+    VDESC("VDesc");
 
     private String nomeMethod;
 

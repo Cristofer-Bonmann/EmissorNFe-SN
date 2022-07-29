@@ -40,6 +40,8 @@ public class ICMSSN101Builder {
 
         prod.setVProd("100.00");
         prod.setVFrete("5.00");
+        prod.setVSeg("5.00");
+        prod.setVDesc("5.00");
 
         icmssn101Builder.infNFe = infNFe;
 

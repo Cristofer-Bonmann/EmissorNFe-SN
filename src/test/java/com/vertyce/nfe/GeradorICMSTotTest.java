@@ -1,9 +1,11 @@
 package com.vertyce.nfe;
 
+import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Total;
 import com.vertyce.builders.ICMSSN101Builder;
 import com.vertyce.enums.EICMSTotMethod;
+import com.vertyce.util.Util;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
@@ -20,6 +22,76 @@ public class GeradorICMSTotTest {
     @Before
     public void setUp(){
         MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    public void deveGerarComVPIS(){
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
+        Util.addPIS(infNFe);
+        final InfNFe.Det.Imposto.PIS pis = Util.getPIS(infNFe);
+        final InfNFe.Det.Imposto.PIS.PISAliq pisAliq = new InfNFe.Det.Imposto.PIS.PISAliq();
+        pisAliq.setVPIS("0.50");
+        pis.setPISAliq(pisAliq);
+
+        final Total total = new Total();
+        infNFe.setTotal(total);
+
+        geradorICMSTot.gerarICMSTot(infNFe);
+
+        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        assertThat(icmsTot.getVPIS(), is("0.50"));
+    }
+
+    @Test
+    public void deveGerarComVIPI(){
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
+
+        final Total total = new Total();
+        infNFe.setTotal(total);
+
+        geradorICMSTot.gerarICMSTot(infNFe);
+
+        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        assertThat(icmsTot.getVIPI(), is("0.00"));
+    }
+
+    @Test
+    public void deveGerarComVII(){
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
+
+        final Total total = new Total();
+        infNFe.setTotal(total);
+
+        geradorICMSTot.gerarICMSTot(infNFe);
+
+        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        assertThat(icmsTot.getVII(), is("0.00"));
+    }
+
+    @Test
+    public void deveGerarComVDesc(){
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
+
+        final Total total = new Total();
+        infNFe.setTotal(total);
+
+        geradorICMSTot.gerarICMSTot(infNFe);
+
+        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        assertThat(icmsTot.getVDesc(), is("5.00"));
+    }
+
+    @Test
+    public void deveGerarComVSeg(){
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
+
+        final Total total = new Total();
+        infNFe.setTotal(total);
+
+        geradorICMSTot.gerarICMSTot(infNFe);
+
+        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        assertThat(icmsTot.getVSeg(), is("5.00"));
     }
 
     @Test
