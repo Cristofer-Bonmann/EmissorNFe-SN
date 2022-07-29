@@ -4,6 +4,7 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Total;
 import com.vertyce.builders.ICMSSN101Builder;
+import com.vertyce.builders.PISAliqBuilder;
 import com.vertyce.enums.EICMSTotMethod;
 import com.vertyce.util.Util;
 import org.junit.Before;
@@ -26,12 +27,7 @@ public class GeradorICMSTotTest {
 
     @Test
     public void deveGerarComVPIS(){
-        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
-        Util.addPIS(infNFe);
-        final InfNFe.Det.Imposto.PIS pis = Util.getPIS(infNFe);
-        final InfNFe.Det.Imposto.PIS.PISAliq pisAliq = new InfNFe.Det.Imposto.PIS.PISAliq();
-        pisAliq.setVPIS("0.50");
-        pis.setPISAliq(pisAliq);
+        final InfNFe infNFe = PISAliqBuilder.getPISAliq().get();
 
         final Total total = new Total();
         infNFe.setTotal(total);
