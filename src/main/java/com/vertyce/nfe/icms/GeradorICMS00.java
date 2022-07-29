@@ -3,6 +3,7 @@ package com.vertyce.nfe.icms;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS;
 import com.vertyce.enums.EModBC;
+import com.vertyce.nfe.DetUtil;
 
 import javax.xml.bind.JAXBElement;
 import java.util.List;
@@ -31,12 +32,7 @@ public class GeradorICMS00 implements IGeradorICMS00 {
                 .filter(imposto -> imposto.getContent().size() >= 1)
 
                 .map(imposto -> {
-                    List<JAXBElement<?>> jaxbElements = imposto.getContent();
-                    final Object objectICMS = jaxbElements.stream()
-                            .filter(jaxb -> jaxb.getDeclaredType().equals(ICMS.class))
-                            .map(jaxb -> jaxb.getValue())
-                            .findFirst().orElse(null);
-                    return objectICMS;
+                    return DetUtil.getValueDoJAXBElement(imposto.getContent(), ICMS.class);
                 })
 
                 .filter(Objects::nonNull)
