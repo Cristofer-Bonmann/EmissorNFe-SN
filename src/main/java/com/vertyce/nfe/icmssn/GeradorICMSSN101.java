@@ -3,8 +3,10 @@ package com.vertyce.nfe.icmssn;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS.ICMSSN101;
+import com.vertyce.nfe.DetUtil;
 
 import java.util.List;
+import java.util.Objects;
 
 public class GeradorICMSSN101 implements IGeradorICMSSN101 {
     // TODO: 21/07/2022 inserir doc
@@ -16,13 +18,10 @@ public class GeradorICMSSN101 implements IGeradorICMSSN101 {
                 .filter(det -> det.getImposto() != null)
                 .map(det -> det.getImposto())
                 .filter(imposto -> imposto.getContent().size() >= 1)
-                .filter(imposto -> imposto.getContent().get(0).getValue() != null)
-                .map(imposto -> {
-                    Object valueIcms = imposto.getContent().get(0).getValue();
-                    return valueIcms;
 
-                })
-                .filter(valueIcms -> valueIcms instanceof ICMS)
+                .map(imposto -> imposto.getContent())
+                .map(jaxbElements -> DetUtil.getValueDoJAXBElement(jaxbElements, ICMS.class))
+                .filter(Objects::nonNull)
                 .map(valueIcms -> {
                     ICMS icms = (ICMS) valueIcms;
                     return icms;
