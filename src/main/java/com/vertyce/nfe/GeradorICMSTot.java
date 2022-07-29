@@ -14,7 +14,20 @@ import java.util.Objects;
 
 public class GeradorICMSTot implements IGeradorICMSTot{
 
-    // TODO: 28/07/2022 inserir doc
+    /**
+     * Invoca um método pelo nome e retorna o resultado dessa invocação. <br>
+     * - receberá o nome do método que será invocado;
+     * - invocará o método;
+     * - retornará o resultado como o tipo Object.
+     *
+     * @param prod instância do método que será invocado.
+     * @param nomeField nome do método da classe Prod.
+     * @return retorno da invocação do método.
+     *
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     */
     private Object getValorMethdodInvoke(Prod prod, String nomeField) throws NoSuchMethodException,
             InvocationTargetException, IllegalAccessException {
 
@@ -26,12 +39,16 @@ public class GeradorICMSTot implements IGeradorICMSTot{
         return objectValue;
     }
 
-    // TODO: 29/07/2022 inserir doc
+    /**
+     * Verifica se existe um método na classe Prod com o nome passado por parâmetro.
+     * @param nomeMethod nome do método.
+     * @return true caso afirmativo, false caso contrário.
+     */
     private boolean methodExiste(String nomeMethod){
         boolean existeMethod = true;
         final String nome = "get" + nomeMethod;
         try {
-            final Method declaredMethod = Prod.class.getDeclaredMethod(nome);
+            Prod.class.getDeclaredMethod(nome);
         } catch (NoSuchMethodException e) {
             existeMethod = false;
         }
@@ -39,7 +56,18 @@ public class GeradorICMSTot implements IGeradorICMSTot{
         return existeMethod;
     }
 
-    // TODO: 29/07/2022 inserir doc
+    /**
+     * Retorna o valor total de um campo(Field), com nome passado por parâmetro(nomeMethod), da classe Prod. <br>
+     * O cáluclo do total será feito percorrendo a todos os itens Det -> prod -> 'nome do campo' e efetuando a invocação
+     * do método 'det' deste campo. <br>
+     * - se o método do Field não existir será retornado nulo;
+     * - se o objeto Prod do Det for igual a nulo, será retornado '0.00';
+     * - se um dos Exception esperados forem disparados, será retornado '0.00';
+     * @param dets lista de Det.
+     * @param nomeMethod nome do método que será invocado para retornar o valor do Field de Prod.
+     * @return valor total do campo.
+     * @see Prod
+     */
     protected String getTotalPorCampo(List<Det> dets, String nomeMethod){
 
         final BigDecimal bgZero = new BigDecimal("0.00");
@@ -112,7 +140,10 @@ public class GeradorICMSTot implements IGeradorICMSTot{
         return String.valueOf(totalVPis);
     }
 
-    // TODO: 26/07/2022 inserir doc
+    /**
+     * Cria e atribuí na InfNFe um objeto ICMSTot e atribuí os seus campos com os seus respectivos totais.
+     * @param infNFe objeto InfNFe.
+     */
     @Override
     public void gerarICMSTot(InfNFe infNFe) {
 

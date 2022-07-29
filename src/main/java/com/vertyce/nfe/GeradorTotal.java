@@ -4,7 +4,10 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Total;
 
 public class GeradorTotal implements IGeradorTotal {
-    // TODO: 26/07/2022 inserir doc
+    /**
+     * Adiciona objeto Total na InfNFe,
+     * @param infNFe objeto InfNFe.
+     */
     @Override
     public void gerarTotal(TNFe.InfNFe infNFe) {
         infNFe.setTotal(new Total());

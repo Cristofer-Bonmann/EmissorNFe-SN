@@ -7,7 +7,10 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.PIS;
 import java.util.List;
 
 public class GeradorPIS implements IGeradorPIS {
-    // TODO: 22/07/2022 inserir doc
+    /**
+     * Adiciona objeto PIS em InfNFe -> Det -> Imposto. Para todos os itens da lista de Det.
+     * @param infNFe objeto InfNFe.
+     */
     @Override
     public void gerarPIS(TNFe.InfNFe infNFe) {
         final List<TNFe.InfNFe.Det> dets = infNFe.getDet();

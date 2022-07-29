@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class GeradorPISNT implements IGeradorPISNT {
-    // TODO: 22/07/2022 inserir doc
+    // TODO: 29/07/2022 inserir doc
     @Override
     public void gerarPISNT(TNFe.InfNFe infNFe) {
         final List<TNFe.InfNFe.Det> dets = infNFe.getDet();

@@ -6,7 +6,10 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import java.util.List;
 
 public class GeradorCOFINS implements com.vertyce.nfe.cofins.IGeradorCOFINS{
-    // TODO: 26/07/2022 inserir doc
+    /**
+     * Adiciona objeto COFINS em InfNFe -> Det -> Imposto. Para todos os itens da lista de Det.
+     * @param infNFe objeto InfNFe.
+     */
     @Override
     public void gerarCOFINS(TNFe.InfNFe infNFe) {
         final List<TNFe.InfNFe.Det> dets = infNFe.getDet();
