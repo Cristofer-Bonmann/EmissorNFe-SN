@@ -29,7 +29,7 @@ public class GeradorPISTest {
 
         geradorPIS.gerarPIS(infNFe);
 
-        PIS pis = Util.getPIS(infNFe);
+        PIS pis = Util.getPIS(infNFe, 0);
         assertThat(pis, notNullValue());
     }
 
@@ -39,7 +39,7 @@ public class GeradorPISTest {
 
         geradorPIS.gerarPIS(infNFe);
 
-        PIS pis = Util.getPIS(infNFe);
+        PIS pis = Util.getPIS(infNFe, 0);
         assertThat(pis, nullValue());
     }
 
@@ -51,7 +51,7 @@ public class GeradorPISTest {
 
         geradorPIS.gerarPIS(infNFe);
 
-        PIS pis = Util.getPIS(infNFe);
+        PIS pis = Util.getPIS(infNFe, 0);
         assertThat(pis, nullValue());
     }
 }

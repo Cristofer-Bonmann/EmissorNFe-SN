@@ -34,7 +34,7 @@ public class GeradorCOFINSNTTest {
 
         geradorCOFINSNT.gerarCOFINSNT(infNFe);
 
-        final COFINSNT cofinsnt = Util.getCOFINS(infNFe).getCOFINSNT();
+        final COFINSNT cofinsnt = Util.getCOFINS(infNFe, 0).getCOFINSNT();
         assertThat(cofinsnt.getCST(), is("04"));
     }
 
@@ -47,7 +47,7 @@ public class GeradorCOFINSNTTest {
 
         geradorCOFINSNT.gerarCOFINSNT(infNFe);
 
-        final COFINSNT cofinsnt = Util.getCOFINS(infNFe).getCOFINSNT();
+        final COFINSNT cofinsnt = Util.getCOFINS(infNFe, 0).getCOFINSNT();
         assertThat(cofinsnt, notNullValue());
     }
 }

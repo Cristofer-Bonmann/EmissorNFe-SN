@@ -29,7 +29,7 @@ public class GeradorPISNTTest {
 
         geradorPISNT.gerarPISNT(infNFe);
 
-        final PIS.PISNT pisnt = Util.getPIS(infNFe).getPISNT();
+        final PIS.PISNT pisnt = Util.getPIS(infNFe, 0).getPISNT();
         assertThat(pisnt.getCST(), is("04"));
     }
 
@@ -41,7 +41,7 @@ public class GeradorPISNTTest {
 
         geradorPISNT.gerarPISNT(infNFe);
 
-        final PIS pis = Util.getPIS(infNFe);
+        final PIS pis = Util.getPIS(infNFe, 0);
         assertThat(pis.getPISNT(), notNullValue());
     }
 }

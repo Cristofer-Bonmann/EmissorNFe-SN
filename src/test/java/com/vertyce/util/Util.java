@@ -34,11 +34,11 @@ public class Util {
     }
 
     /**
-     * Retorna objeto COFINS do imposto do primeiro Det do objeto InfNFe. <br>
+     * Retorna objeto COFINS do imposto pelo índice do Det do objeto InfNFe. <br>
      * isola lista de Det's; <br>
      * filtra pelo objeto imposto diferente de nulo; <br>
      * retorna esse objeto Imposto; <br>
-     * filtra pela lista de JAXBElement(imposto.Content) que seja diferente de vazia; <br>
+     * filtra pela lista de JAXBElement('imposto.Content') que diferem de vazia; <br>
      * retorna lista de elementos do Content; <br>
      * para cada elemento dessa lista: filtra-se pelos itens do tipo COFINS e retorna o primeiro objeto encontrado ou retorna nulo; <br>
      * converte o objeto retornado para COFINS ou então retorna-se nulo. <br>
@@ -46,12 +46,12 @@ public class Util {
      * @param infNFe
      * @return objeto COFINS.
      */
-    public static COFINS getCOFINS(InfNFe infNFe){
+    public static COFINS getCOFINS(InfNFe infNFe, int indexDet){
         COFINS cofins = null;
 
         final List<Det> dets = infNFe.getDet();
         if (dets.size() >= 1) {
-            final Det det = dets.get(0);
+            final Det det = dets.get(indexDet);
             final Det.Imposto imposto = det.getImposto();
 
             if (imposto != null) {
@@ -67,22 +67,23 @@ public class Util {
     }
 
     /**
-     * Adiciona um novo objeto PIS na Content PIS, do objeto Imposto, no primeiro item Det do parâmetro InfNFe.
-     * @param infNFe
+     * Adiciona um novo object PIS em InfNFe -> Det -> Imposto -> List Content. O novo objeto será criado e adicionado
+     * em todos os itens do Det.
+     * @param infNFe objeto InfNFe.
      */
     public static void addPIS(InfNFe infNFe) {
-        infNFe.getDet().get(0)
-                .getImposto().getContent()
-                .add(new ObjectFactory()
-                        .createTNFeInfNFeDetImpostoPIS(new PIS()));
+        infNFe.getDet().stream()
+                .map(det -> det.getImposto())
+                .forEach(imposto -> imposto.getContent()
+                        .add(new ObjectFactory().createTNFeInfNFeDetImpostoPIS(new PIS())));
     }
 
     /**
-     * Retorna objeto PIS do imposto do primeiro Det do objeto InfNFe. <br>
+     * Retorna objeto PIS do imposto pelo índice do 'Det' do objeto InfNFe. <br>
      * isola lista de Det's; <br>
      * filtra pelo objeto imposto diferente de nulo; <br>
      * retorna esse objeto Imposto; <br>
-     * filtra pela lista de JAXBElement(imposto.Content) que seja diferente de vazia; <br>
+     * filtra pela lista de JAXBElement('imposto.Content') que diferem de vazia; <br>
      * retorna lista de elementos do Content; <br>
      * para cada elemento dessa lista: filtra-se pelos itens do tipo PIS e retorna o primeiro objeto encontrado ou retorna nulo; <br>
      * converte o objeto retornado para PIS ou então retorna-se nulo. <br>
@@ -90,12 +91,12 @@ public class Util {
      * @param infNFe
      * @return objeto PIS.
      */
-    public static PIS getPIS(InfNFe infNFe){
+    public static PIS getPIS(InfNFe infNFe, int indexDet){
         PIS pis = null;
 
         final List<Det> dets = infNFe.getDet();
         if (dets.size() >= 1) {
-            final Det det = dets.get(0);
+            final Det det = dets.get(indexDet);
             final Det.Imposto imposto = det.getImposto();
 
             if (imposto != null) {

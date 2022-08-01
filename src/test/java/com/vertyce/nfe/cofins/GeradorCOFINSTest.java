@@ -31,7 +31,7 @@ public class GeradorCOFINSTest {
 
         geradorCOFINS.gerarCOFINS(infNFe);
 
-        final COFINS cofins = Util.getCOFINS(infNFe);
+        final COFINS cofins = Util.getCOFINS(infNFe, 0);
         assertThat(cofins, CoreMatchers.nullValue());
     }
 
@@ -41,7 +41,7 @@ public class GeradorCOFINSTest {
 
         geradorCOFINS.gerarCOFINS(infNFe);
 
-        final COFINS cofins = Util.getCOFINS(infNFe);
+        final COFINS cofins = Util.getCOFINS(infNFe, 0);
         assertThat(cofins, notNullValue());
     }
 }
