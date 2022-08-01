@@ -28,6 +28,17 @@ public class GeradorICMSTotTest {
     }
 
     @Test
+    public void deveGerarComVNF(){
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
+        infNFe.setTotal(new Total());
+
+        geradorICMSTot.gerarICMSTot(infNFe);
+
+        final ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        assertThat(icmsTot.getVNF(), is("110.00"));
+    }
+
+    @Test
     public void deveGerarComVOutro(){
         final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
 

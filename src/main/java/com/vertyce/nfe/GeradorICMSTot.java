@@ -211,6 +211,19 @@ public class GeradorICMSTot implements IGeradorICMSTot {
             final String vCOFINS = getTotalVCOFINS(infNFe.getDet());
             final String vOutro = getTotalPorCampo(infNFe.getDet(), EICMSTotMethod.VOUTRO.getNomeMethod());
 
+            final BigDecimal bgVICMSDeson = new BigDecimal(vICMSDeson);
+            final BigDecimal bgVST = new BigDecimal(vST);
+            final BigDecimal bgVProd = new BigDecimal(vProd);
+            final BigDecimal bgVFrete = new BigDecimal(vFrete);
+            final BigDecimal bgVSeg = new BigDecimal(vSeg);
+            final BigDecimal bgVDesc = new BigDecimal(vDesc);
+            final BigDecimal bgVII = new BigDecimal(vII);
+            final BigDecimal bgVIPI = new BigDecimal(vIPI);
+            final BigDecimal bgVOutro = new BigDecimal(vOutro);
+
+            final String vNF = String.valueOf(bgVST.add(bgVProd).add(bgVFrete).add(bgVSeg).add(bgVII).add(bgVIPI).add(bgVOutro)
+                    .subtract(bgVICMSDeson).subtract(bgVDesc));
+
             icmsTot.setVBC(vBC);
             icmsTot.setVICMS(vICMS);
             icmsTot.setVICMSDeson(vICMSDeson);
@@ -225,6 +238,7 @@ public class GeradorICMSTot implements IGeradorICMSTot {
             icmsTot.setVPIS(vPIS);
             icmsTot.setVCOFINS(vCOFINS);
             icmsTot.setVOutro(vOutro);
+            icmsTot.setVNF(vNF);
         }
     }
 }
