@@ -33,7 +33,7 @@ public class GeradorICMSSN101Test {
 
         geradorICMSSN101.gerarICMSSN101(infNFe);
 
-        ICMS.ICMSSN101 icmssn101 = Util.getICMS(infNFe).getICMSSN101();
+        ICMS.ICMSSN101 icmssn101 = Util.getICMS(infNFe, 0).getICMSSN101();
         assertThat(icmssn101.getVCredICMSSN(), is("10.00"));
     }
 
@@ -44,7 +44,7 @@ public class GeradorICMSSN101Test {
 
         geradorICMSSN101.gerarICMSSN101(infNFe);
 
-        ICMS.ICMSSN101 icmssn101 = Util.getICMS(infNFe).getICMSSN101();
+        ICMS.ICMSSN101 icmssn101 = Util.getICMS(infNFe, 0).getICMSSN101();
         assertThat(icmssn101.getPCredSN(), is("10.0000"));
     }
 
@@ -55,7 +55,7 @@ public class GeradorICMSSN101Test {
 
         geradorICMSSN101.gerarICMSSN101(infNFe);
 
-        ICMS.ICMSSN101 icmssn101 = Util.getICMS(infNFe).getICMSSN101();
+        ICMS.ICMSSN101 icmssn101 = Util.getICMS(infNFe, 0).getICMSSN101();
         assertThat(icmssn101.getCSOSN(), is("101"));
     }
 
@@ -66,7 +66,7 @@ public class GeradorICMSSN101Test {
 
         geradorICMSSN101.gerarICMSSN101(infNFe);
 
-        ICMS.ICMSSN101 icmssn101 = Util.getICMS(infNFe).getICMSSN101();
+        ICMS.ICMSSN101 icmssn101 = Util.getICMS(infNFe, 0).getICMSSN101();
         assertThat(icmssn101.getOrig(), is("0"));
     }
 
@@ -77,7 +77,7 @@ public class GeradorICMSSN101Test {
 
         geradorICMSSN101.gerarICMSSN101(infNFe);
 
-        final ICMS icms = Util.getICMS(infNFe);
+        final ICMS icms = Util.getICMS(infNFe, 0);
         assertThat(icms.getICMSSN101(), notNullValue());
     }
 
@@ -108,7 +108,7 @@ public class GeradorICMSSN101Test {
 
         geradorICMSSN101.gerarICMSSN101(infNFe);
 
-        InfNFe.Det.Imposto.ICMS icms = Util.getICMS(infNFe);
+        InfNFe.Det.Imposto.ICMS icms = Util.getICMS(infNFe, 0);
         assertThat(icms, nullValue());
     }
 

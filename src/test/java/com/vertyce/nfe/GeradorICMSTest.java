@@ -29,7 +29,7 @@ public class GeradorICMSTest {
 
         geradorICMS.gerarICMS(infNFe);
 
-        Det.Imposto.ICMS icms = Util.getICMS(infNFe);
+        Det.Imposto.ICMS icms = Util.getICMS(infNFe, 0);
         assertThat(icms, notNullValue());
     }
 

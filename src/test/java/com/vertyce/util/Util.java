@@ -112,34 +112,45 @@ public class Util {
     }
 
     /**
-     * Adiciona um novo objeto ICMS na Content ICMS, do objeto Imposto, do primeiro item Det do parâmetro InfNFe.
+     * Adiciona novo ICMS em: InfNFe -> Det -> Imposto -> lista Content. Isso será feito para todos os 'Dets'.
      * @param infNFe
      */
     public static void addICMS(InfNFe infNFe){
-        infNFe.getDet().get(0)
-                .getImposto().getContent()
-                .add(new ObjectFactory()
-                        .createTNFeInfNFeDetImpostoICMS(new ICMS()));
+        infNFe.getDet().stream()
+                .map(det -> det.getImposto())
+                .forEach(imposto -> imposto.getContent()
+                        .add(new ObjectFactory().createTNFeInfNFeDetImpostoICMS(new ICMS())));
     }
 
     /**
-     * Captura o primeiro item da lista de Det's do parâmetro InfNFe; <br>
-     * Captura o objeto imposto desse item; <br>
+     * Captura o 'item' da lista de 'Det' pelo índice, do parâmetro InfNFe; <br>
+     * Captura o objeto imposto desse 'item'; <br>
      * Captura a lista do tipo JAXBElement desse Imposto; <br>
-     * Dessa lista é retornado o valor do primeiro item convertido em um objeto ICMS.
+     * Dessa lista é retornado o valor do primeiro 'item' convertido em um objeto ICMS.
      * @param infNFe
      * @return objeto ICMS.
      */
-    public static ICMS getICMS(InfNFe infNFe){
-        ICMS icms = null;
-        List<JAXBElement<?>> content = infNFe.getDet().get(0).getImposto().getContent();
+    public static ICMS getICMS(InfNFe infNFe, int indexDet){
+            ICMS icms = null;
 
-        if (content != null && content.size() >= 1) {
-            List<JAXBElement<?>> jaxeICMS = infNFe.getDet().get(0).getImposto().getContent();
-            icms = (ICMS) jaxeICMS.get(0).getValue();
-        }
-        return icms;
+            final List<Det> dets = infNFe.getDet();
+            if (dets.size() >= 1) {
+                final Det det = dets.get(indexDet);
+                final Det.Imposto imposto = det.getImposto();
+
+                if (imposto != null) {
+                    icms = det.getImposto().getContent().stream()
+                            .filter(jaxb -> jaxb.getDeclaredType().equals(ICMS.class))
+                            .map(jaxbElement -> jaxbElement.getValue())
+                            .map(objectICMS -> (ICMS) objectICMS)
+                            .findFirst()
+                            .orElse(null);
+                }
+            }
+            return icms;
     }
+
+
 
     /**
      * Cria um novo objeto InfNFe, cria um novo objeto Det e inseri ele objeto na lista de det's do InfNFe.
