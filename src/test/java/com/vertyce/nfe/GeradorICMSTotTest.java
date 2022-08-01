@@ -4,6 +4,7 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Total;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Total.ICMSTot;
+import com.vertyce.builders.COFINSAliqBuilder;
 import com.vertyce.builders.ICMSSN101Builder;
 import com.vertyce.builders.PISAliqBuilder;
 import com.vertyce.enums.EICMSTotMethod;
@@ -27,7 +28,20 @@ public class GeradorICMSTotTest {
     }
 
     @Test
-    public void naoDeveGerarVPISSemPIS(){
+    public void deveGerarComVCOFINS(){
+        final InfNFe infNFe = COFINSAliqBuilder.getCOFINSAliq().get();
+
+        final Total total = new Total();
+        infNFe.setTotal(total);
+
+        geradorICMSTot.gerarICMSTot(infNFe);
+
+        final ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        assertThat(icmsTot.getVCOFINS(), is("0.50"));
+    }
+
+    @Test
+    public void deveGerarComVPISSemPIS(){
         final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
         infNFe.setTotal(new Total());
 

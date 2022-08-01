@@ -2,6 +2,7 @@ package com.vertyce.nfe;
 
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det;
+import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.COFINS;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.PIS;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Prod;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Total.ICMSTot;
@@ -137,6 +138,31 @@ public class GeradorICMSTot implements IGeradorICMSTot {
         return String.valueOf(totalVPis == null ? "0.00" : totalVPis);
     }
 
+    // TODO: 29/07/2022 inserir doc
+    private String getTotalVCOFINS(List<Det> dets) {
+        final BigDecimal totalVCofins = DetUtil.getStreamDetImpostoContent(dets.stream())
+                .map(jaxbElements -> {
+                    Object objectCOFINS = jaxbElements.stream()
+                            .filter(jaxb -> jaxb.getDeclaredType().equals(COFINS.class))
+                            .map(jaxb -> jaxb.getValue())
+                            .findFirst().orElse(null);
+                    return objectCOFINS;
+                })
+
+                .filter(Objects::nonNull)
+                .map(valueCofins -> {
+                    final COFINS cofins = (COFINS) valueCofins;
+                    return cofins;
+
+                })
+
+                .map(cofins -> new BigDecimal(cofins.getCOFINSAliq().getVCOFINS()))
+                .reduce(BigDecimal::add)
+                .orElse(null);
+
+        return String.valueOf(totalVCofins == null ? "0.00" : totalVCofins);
+    }
+
     /**
      * Cria e atribuí na InfNFe um objeto ICMSTot e atribuí os seus campos com os seus respectivos totais.
      *
@@ -162,6 +188,7 @@ public class GeradorICMSTot implements IGeradorICMSTot {
             final String vII = "0.00";
             final String vIPI = "0.00";
             final String vPIS = getTotalVPIS(infNFe.getDet());
+            final String vCOFINS = getTotalVCOFINS(infNFe.getDet());
 
             icmsTot.setVBC(vBC);
             icmsTot.setVICMS(vICMS);
@@ -175,6 +202,7 @@ public class GeradorICMSTot implements IGeradorICMSTot {
             icmsTot.setVII(vII);
             icmsTot.setVIPI(vIPI);
             icmsTot.setVPIS(vPIS);
+            icmsTot.setVCOFINS(vCOFINS);
         }
     }
 }
