@@ -76,6 +76,19 @@ public class GeradorICMSTotTest {
     }
 
     @Test
+    public void gerarSemPISAliq(){
+        final InfNFe infNFe = PISAliqBuilder.getPISAliq().get();
+        final InfNFe.Det.Imposto.PIS pis = Util.getPIS(infNFe, 0);
+        pis.setPISAliq(null);
+        infNFe.setTotal(new Total());
+
+        geradorICMSTot.gerarICMSTot(infNFe);
+
+        final ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        assertThat(icmsTot.getVPIS(), is("0.00"));
+    }
+
+    @Test
     public void deveGerarComVPISSemPIS(){
         final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
         infNFe.setTotal(new Total());

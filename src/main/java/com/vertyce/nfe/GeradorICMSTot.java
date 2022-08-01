@@ -141,6 +141,7 @@ public class GeradorICMSTot implements IGeradorICMSTot {
 
                 })
 
+                .filter(pis -> pis.getPISAliq() != null)
                 .map(pis -> new BigDecimal(pis.getPISAliq().getVPIS()))
                 .reduce(BigDecimal::add)
                 .orElse(null);
