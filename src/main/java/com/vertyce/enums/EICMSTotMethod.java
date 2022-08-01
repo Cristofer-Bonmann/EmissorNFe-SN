@@ -4,7 +4,9 @@ public enum EICMSTotMethod {
     VPROD("VProd"),
     VFRETE("VFrete"),
     VSEG("VSeg"),
-    VDESC("VDesc");
+    VDESC("VDesc"),
+
+    VOUTRO("VOutro");
 
     private String nomeMethod;
 

@@ -209,6 +209,7 @@ public class GeradorICMSTot implements IGeradorICMSTot {
             final String vIPI = "0.00";
             final String vPIS = getTotalVPIS(infNFe.getDet());
             final String vCOFINS = getTotalVCOFINS(infNFe.getDet());
+            final String vOutro = getTotalPorCampo(infNFe.getDet(), EICMSTotMethod.VOUTRO.getNomeMethod());
 
             icmsTot.setVBC(vBC);
             icmsTot.setVICMS(vICMS);
@@ -223,6 +224,7 @@ public class GeradorICMSTot implements IGeradorICMSTot {
             icmsTot.setVIPI(vIPI);
             icmsTot.setVPIS(vPIS);
             icmsTot.setVCOFINS(vCOFINS);
+            icmsTot.setVOutro(vOutro);
         }
     }
 }
