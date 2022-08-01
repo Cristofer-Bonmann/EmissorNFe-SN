@@ -28,6 +28,17 @@ public class GeradorICMSTotTest {
     }
 
     @Test
+    public void deveGerarComVCOFINSSemCOFINS(){
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
+        infNFe.setTotal(new Total());
+
+        geradorICMSTot.gerarICMSTot(infNFe);
+
+        final ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        assertThat(icmsTot.getVCOFINS(), is("0.00"));
+    }
+
+    @Test
     public void deveGerarComVCOFINS(){
         final InfNFe infNFe = COFINSAliqBuilder.getCOFINSAliq().get();
 
