@@ -1,14 +1,12 @@
 package com.vertyce.util;
 
 import br.com.swconsultoria.nfe.schema_4.enviNFe.ObjectFactory;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.COFINS;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.PIS;
 
-import javax.xml.bind.JAXBElement;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -149,8 +147,6 @@ public class Util {
             }
             return icms;
     }
-
-
 
     /**
      * Cria um novo objeto InfNFe, cria um novo objeto Det e inseri ele objeto na lista de det's do InfNFe.

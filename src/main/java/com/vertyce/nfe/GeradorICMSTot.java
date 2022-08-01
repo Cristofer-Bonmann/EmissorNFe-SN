@@ -134,7 +134,7 @@ public class GeradorICMSTot implements IGeradorICMSTot {
                 .reduce(BigDecimal::add)
                 .orElse(null);
 
-        return String.valueOf(totalVPis);
+        return String.valueOf(totalVPis == null ? "0.00" : totalVPis);
     }
 
     /**

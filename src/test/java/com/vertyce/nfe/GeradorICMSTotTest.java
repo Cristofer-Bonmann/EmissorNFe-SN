@@ -3,6 +3,7 @@ package com.vertyce.nfe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Total;
+import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Total.ICMSTot;
 import com.vertyce.builders.ICMSSN101Builder;
 import com.vertyce.builders.PISAliqBuilder;
 import com.vertyce.enums.EICMSTotMethod;
@@ -26,6 +27,17 @@ public class GeradorICMSTotTest {
     }
 
     @Test
+    public void naoDeveGerarVPISSemPIS(){
+        final InfNFe infNFe = ICMSSN101Builder.getICMSSN101().get();
+        infNFe.setTotal(new Total());
+
+        geradorICMSTot.gerarICMSTot(infNFe);
+
+        final ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        assertThat(icmsTot.getVPIS(), is("0.00"));
+    }
+
+    @Test
     public void deveGerarComVPIS(){
         final InfNFe infNFe = PISAliqBuilder.getPISAliq().get();
 
@@ -34,7 +46,7 @@ public class GeradorICMSTotTest {
 
         geradorICMSTot.gerarICMSTot(infNFe);
 
-        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        final ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
         assertThat(icmsTot.getVPIS(), is("0.50"));
     }
 
@@ -47,7 +59,7 @@ public class GeradorICMSTotTest {
 
         geradorICMSTot.gerarICMSTot(infNFe);
 
-        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        final ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
         assertThat(icmsTot.getVIPI(), is("0.00"));
     }
 
@@ -60,7 +72,7 @@ public class GeradorICMSTotTest {
 
         geradorICMSTot.gerarICMSTot(infNFe);
 
-        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        final ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
         assertThat(icmsTot.getVII(), is("0.00"));
     }
 
@@ -73,7 +85,7 @@ public class GeradorICMSTotTest {
 
         geradorICMSTot.gerarICMSTot(infNFe);
 
-        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        final ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
         assertThat(icmsTot.getVDesc(), is("5.00"));
     }
 
@@ -86,7 +98,7 @@ public class GeradorICMSTotTest {
 
         geradorICMSTot.gerarICMSTot(infNFe);
 
-        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        final ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
         assertThat(icmsTot.getVSeg(), is("5.00"));
     }
 
@@ -99,7 +111,7 @@ public class GeradorICMSTotTest {
 
         geradorICMSTot.gerarICMSTot(infNFe);
 
-        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        final ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
         assertThat(icmsTot.getVFrete(), is("5.00"));
     }
 
@@ -112,7 +124,7 @@ public class GeradorICMSTotTest {
 
         geradorICMSTot.gerarICMSTot(infNFe);
 
-        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        final ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
         assertThat(icmsTot.getVProd(), is("100.00"));
     }
 
@@ -125,7 +137,7 @@ public class GeradorICMSTotTest {
 
         geradorICMSTot.gerarICMSTot(infNFe);
 
-        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        final ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
         assertThat(icmsTot.getVST(), is("0.00"));
     }
 
@@ -138,7 +150,7 @@ public class GeradorICMSTotTest {
 
         geradorICMSTot.gerarICMSTot(infNFe);
 
-        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        final ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
         assertThat(icmsTot.getVBCST(), is("0.00"));
     }
 
@@ -151,7 +163,7 @@ public class GeradorICMSTotTest {
 
         geradorICMSTot.gerarICMSTot(infNFe);
 
-        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        final ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
         assertThat(icmsTot.getVICMSDeson(), is("0.00"));
     }
 
@@ -164,7 +176,7 @@ public class GeradorICMSTotTest {
 
         geradorICMSTot.gerarICMSTot(infNFe);
 
-        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        final ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
         assertThat(icmsTot.getVICMS(), is("0.00"));
     }
 
@@ -177,7 +189,7 @@ public class GeradorICMSTotTest {
 
         geradorICMSTot.gerarICMSTot(infNFe);
 
-        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        final ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
         assertThat(icmsTot.getVBC(), is("0.00"));
     }
 
@@ -209,7 +221,7 @@ public class GeradorICMSTotTest {
 
         geradorICMSTot.gerarICMSTot(infNFe);
 
-        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        final ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
         assertThat(icmsTot.getVProd(), is("0.00"));
     }
 
@@ -222,7 +234,7 @@ public class GeradorICMSTotTest {
 
         geradorICMSTot.gerarICMSTot(infNFe);
 
-        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        final ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
         assertThat(icmsTot.getVProd(), is("0.00"));
     }
 
@@ -235,7 +247,7 @@ public class GeradorICMSTotTest {
 
         geradorICMSTot.gerarICMSTot(infNFe);
 
-        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        final ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
         assertThat(icmsTot.getVProd(), is("0.00"));
     }
 
@@ -248,7 +260,7 @@ public class GeradorICMSTotTest {
 
         geradorICMSTot.gerarICMSTot(infNFe);
 
-        final Total.ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
+        final ICMSTot icmsTot = infNFe.getTotal().getICMSTot();
         assertThat(icmsTot.getVProd(), is("0.00"));
     }
 
