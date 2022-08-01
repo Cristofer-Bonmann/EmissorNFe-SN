@@ -113,7 +113,17 @@ public class GeradorICMSTot implements IGeradorICMSTot {
         return strTotal;
     }
 
-    // TODO: 29/07/2022 inserir doc
+    /**
+     * Calcula o total do 'vPIS' de todas as tributações. <br>
+     * Percorre a lista de: InfNFe -> Det -> Imposto -> lista de Content; <br>
+     * Verifica se o elemento da lista de Content(JAXBElement) é do tipo PIS. <br>
+     * Filtra resultados diferentes de nulo; <br>
+     * Converte o resultado encontrado para PIS; <br>
+     * Converte e retorna o valor da tributação 'PISAliq' do resultado encontrado para BigDecimal; <br>
+     * Coma o valor encontrado e retorna o total. <br>
+     * @param dets lista de 'Det'.
+     * @return retorna o total de 'vPIS'.
+     */
     protected String getTotalVPIS(List<Det> dets) {
         final BigDecimal totalVPis = DetUtil.getStreamDetImpostoContent(dets.stream())
                 .map(jaxbElements -> {
@@ -138,7 +148,17 @@ public class GeradorICMSTot implements IGeradorICMSTot {
         return String.valueOf(totalVPis == null ? "0.00" : totalVPis);
     }
 
-    // TODO: 29/07/2022 inserir doc
+    /**
+     * Calcula o total do 'vCOFINS' de todas as tributações. <br>
+     * Percorre a lista de: InfNFe -> Det -> Imposto -> lista de Content; <br>
+     * Verifica se o elemento da lista de Content(JAXBElement) é do tipo COFINS. <br>
+     * Filtra resultados diferentes de nulo; <br>
+     * Converte o resultado encontrado para COFINS; <br>
+     * Converte e retorna o valor da tributação 'COFINSAliq' do resultado encontrado para BigDecimal; <br>
+     * Coma o valor encontrado e retorna o total. <br>
+     * @param dets lista de 'Det'.
+     * @return retorna o total de 'vCOFINS'.
+     */
     private String getTotalVCOFINS(List<Det> dets) {
         final BigDecimal totalVCofins = DetUtil.getStreamDetImpostoContent(dets.stream())
                 .map(jaxbElements -> {
