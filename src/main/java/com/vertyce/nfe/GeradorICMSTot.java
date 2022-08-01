@@ -177,6 +177,7 @@ public class GeradorICMSTot implements IGeradorICMSTot {
 
                 })
 
+                .filter(cofins -> cofins.getCOFINSAliq() != null)
                 .map(cofins -> new BigDecimal(cofins.getCOFINSAliq().getVCOFINS()))
                 .reduce(BigDecimal::add)
                 .orElse(null);
